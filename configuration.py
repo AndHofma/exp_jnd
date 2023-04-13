@@ -1,16 +1,36 @@
+"""
+This module contains the functions and configurations required to run the Just Noticeable Difference (JND) task
+It provides functionality for randomizing task order, generating task-specific configurations,
+and calculating appropriate step sizes for each trial.
+"""
+
 from resources import pitch_FL_text, pause_text
 import random
 
+
+# General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
-                              "num_runs": 3,
+                              "num_runs": 2,
                               "num_trials_each_run": 100,
                               "base_stimuli_path": 'audio/',  # input path is generated as base_stimuli_path+task name
                               "output_path": 'results/'}
 
+
+# Randomize the order of tasks - between subjects design
 randomized_tasks = random.sample(general_experiment_configs["task_types"],
                                  k=len(general_experiment_configs["task_types"]))
 
+
 def get_task_specific_config(task):
+    """
+        Get task-specific configuration settings.
+
+        Args:
+            task (str): The task name ("pitch", "FL", or "pause").
+
+        Returns:
+            dict: A dictionary containing task-specific configuration settings.
+    """
     config = {"task": "", "stim_prefix": "", "instructions": "",
               "stimuli_path": "",
               "baseline": 0, "initial_difference": 0}
@@ -32,6 +52,7 @@ def get_task_specific_config(task):
     else:
         raise Exception(f"No configs for task {task} specified")
 
+    # Assign task-specific instructions
     if randomized_tasks[0] == 'pitch' or randomized_tasks[0] == 'FL':
         config['instructions'] = pitch_FL_text
     elif randomized_tasks[0] == 'pause':
@@ -40,7 +61,19 @@ def get_task_specific_config(task):
     config["stimuli_path"] = f"{general_experiment_configs['base_stimuli_path']}audio-{task}/ch/"
     return config
 
+
 def get_step_size(task, first_incorrect=False, test_difference=5.0):
+    """
+        Get the step size for the specified task.
+
+        Args:
+            task (str): The task name ("pitch", "FL", or "pause").
+            first_incorrect (bool, optional): Whether the first incorrect response has occurred. Default is False.
+            test_difference (float, optional): The current difference between test and baseline stimuli. Default is 5.0.
+
+        Returns:
+            float: The step size for the task.
+    """
     if task == "pitch":
         if test_difference <= 2:
             return 0.1

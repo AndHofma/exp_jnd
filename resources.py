@@ -1,4 +1,7 @@
-# instructions
+"""
+Instruction texts
+"""
+
 pitch_FL_text = """
 Sie hören nachfolgend denselben Namen dreimal.
 Ein Name ist immer anders als die beiden anderen. \n

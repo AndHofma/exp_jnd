@@ -4,12 +4,14 @@ JND procedure to evaluate JND threshold for 3 different prosodic parameters on a
 - pause after name1 within a name coordinate of the kind "name1 [pause] and name2"
 - pitch / f0 rise from syllable 1 to syllable 2 in name: "Nelli"
 
-1-up-1-down protocol up to the first incorrect response - 1-up-2-down thereafter
+1-down-1-up protocol up to the first incorrect response - 2-down-1-up thereafter
 
 odd-one-out forced-choice task with 3 sequentially auditory presented stimuli
 
 * AXB pattern (AAB or ABB sequences, randomly chosen)
 """
+
+
 from psychopy import sound, visual, event, core
 import random
 import time
@@ -18,7 +20,26 @@ from configuration import get_step_size, get_task_specific_config, general_exper
 from pathchecks import stimulus_exists
 from jnd_visualization import create_visualization
 
+
 def generate_stimulus_path(path_prefix, value, task):
+    """
+        Generate the stimulus file path based on the given value and task.
+
+        This function adjusts the precision of the value based on the task type
+        and appends it to the path prefix to create the full stimulus file path.
+        It then checks if the stimulus file exists before returning the file path.
+
+        Args:
+            path_prefix (str): The prefix of the stimulus file path.
+            value (float): The value used to identify the stimulus file.
+            task (str): The type of task, either 'pitch' or 'duration'.
+
+        Returns:
+            str: The generated stimulus file path if the file exists.
+
+        Raises:
+            Exception: If the stimulus file does not exist.
+    """
     if task == 'pitch':
         value = round(value, 1)
         value_suffix = str(value).replace('.', '_')
@@ -37,7 +58,23 @@ def generate_stimulus_path(path_prefix, value, task):
         return stim_path
     raise Exception(f'No stimulus found: {stim_path}')
 
+
 def run_jnd_task(exp_data, task, win, session_type='trial'):
+    """
+        Run the Just-Noticeable Difference (JND) task for the given task type and session type.
+
+        This function initializes the visual stimuli and then runs either the trial or practice session
+        based on the given session type.
+
+        Args:
+            exp_data (dict): The experiment data containing relevant information.
+            task (str): The type of task, either 'pitch' or 'duration'.
+            win (visual.Window): The PsychoPy window used for displaying the stimuli.
+            session_type (str, optional): The type of session, either 'trial' or 'practice'. Defaults to 'trial'.
+
+        Raises:
+            Exception: If the session type is neither 'trial' nor 'practice'.
+    """
     # AAB pattern pic
     global AAB
     AAB = visual.ImageStim(win,
@@ -91,14 +128,32 @@ def run_jnd_task(exp_data, task, win, session_type='trial'):
     else:
         raise Exception(f"Run type can be either 'trial' or 'practice', received {type}")
 
+
 def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
+    """
+        Run the trial session of the Just-Noticeable Difference (JND) task.
+
+        This function iterates through the trials in the task, generates the stimuli, and records the participant's
+        responses. It also handles the staircase procedure, adaptive step sizes, and stopping conditions.
+
+        Args:
+            path_prefix (str): The path prefix for the stimulus files.
+            exp_data (dict): The experiment data containing relevant information.
+            exp_config (dict): The configuration dictionary for the specific task.
+            session_type (str): The type of session, either 'trial' or 'practice'.
+            win (visual.Window): The PsychoPy window used for displaying the stimuli.
+    """
+    # Iterate through the runs
     for run in range(1, general_experiment_configs['num_runs'] + 1):
-        print(f"num_runs: {range(general_experiment_configs['num_runs'])}")
-        print(f"run: {run}")
+        # IDE output for checking
+        """print(f"num_runs: {range(general_experiment_configs['num_runs'])}")
+        print(f"run: {run}")"""
+        # Generate stimulus paths
         baseline_stimulus = generate_stimulus_path(path_prefix, exp_config["baseline"], exp_config["task"])
         test_value = exp_config["baseline"] + exp_config["initial_difference"]
         test_stimulus = generate_stimulus_path(path_prefix, test_value, exp_config["task"])
 
+        # Initialize variables for the staircase procedure
         current_difference = exp_config["initial_difference"]
         differences = [current_difference]
         first_incorrect = False
@@ -112,11 +167,27 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
         previous_correct = [True]
         last_two_combinations = []  # to make sure there's no more than 3 in a row (AAB or ABB)
 
+        # Set up the output file
         output_filename = f"JND_{exp_config['task']}_{exp_data['subject']}_{date}_{hh_mm}_run_{run}.csv"
         experiment_output = open(general_experiment_configs['output_path'] + output_filename, 'w')
-        experiment_output.write('subject,date,task,session_type,run,trial,recording_A,recording_X,recording_B,response,correct,difference,step-size,reversals,direction\n')
+        experiment_output.write('subject,'
+                                'date,'
+                                'task,'
+                                'session_type,'
+                                'run,'
+                                'trial,'
+                                'recording_A,'
+                                'recording_X,'
+                                'recording_B,'
+                                'response,'
+                                'correct,'
+                                'difference,'
+                                'step-size,'
+                                'reversals,'
+                                'direction\n')
 
-        while trial_index < general_experiment_configs["num_trials_each_run"] and reversals <= 14:  # stop conditions
+        # Main loop for each trial
+        while trial_index <= general_experiment_configs["num_trials_each_run"] and reversals <= 14 and baseline_stimulus != test_stimulus:  # stop conditions
 
             # randomization phase
             recording_A, recording_B = random.sample([baseline_stimulus, test_stimulus], k=2)
@@ -147,6 +218,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             stimulus_B.play()
             time.sleep(get_duration(filename=recording_B) + 0.2)  # after 3rd stimulus wait 200ms
 
+            # Draw response options on screen
             AAB.draw()
             rightArrow.draw()
             ABB.draw()
@@ -157,7 +229,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             # evaluation phase
             key_choice_map = {'left': 'left', 'right': 'right'}
             participant_choice = key_choice_map.get(keys[0], None)
-            if participant_choice == x_key: # correct
+            if participant_choice == x_key:  # correct
                 correct = True
                 correct_in_a_row += 1
                 correct_responses.append(correct)
@@ -171,7 +243,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
                     else:
                         direction = 'none'
                         new_difference = current_difference
-            else: # false
+            else:  # false
                 correct = False
                 first_incorrect = True
                 two_down_one_up = True
@@ -180,8 +252,9 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
                 new_difference = current_difference + step_size
                 correct_responses.append(correct)
             win.flip()
-            core.wait(1) # inter trial interval
+            core.wait(1)  # inter trial interval
 
+            # write the trial data to the output file
             experiment_output.write(','.join([exp_data['subject'],
                                               exp_data['cur_date'],
                                               exp_config['task'],
@@ -203,18 +276,21 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             trial_index += 1
             current_difference = round(new_difference, 3)
             differences.append(current_difference)
-            print("current-difference: "+ str(current_difference) + " at " + str(trial_index))
             step_size = get_step_size(exp_config["task"], first_incorrect, test_difference=current_difference)
-            print("step_size: " + str(step_size) + " at " + str(trial_index))
-            # reversal only when sequence True-False or False-True-True
+            # IDE output for checking
+            """print("current-difference: " + str(current_difference) + " at " + str(trial_index))
+            print("step_size: " + str(step_size) + " at " + str(trial_index))"""
+
+            # counts as reversal only when sequence True-False or False-True-True
             if (previous_correct[trial_index-1] == True and correct == False) or (
                     previous_correct[trial_index-2] == False and previous_correct[trial_index-1] == True and correct == True):
                 reversals += 1
             previous_correct.append(correct)
             reversals_list.append(reversals)
-            test_stimulus = generate_stimulus_path(path_prefix, exp_config['baseline'] + current_difference, exp_config["task"])
+            test_stimulus = generate_stimulus_path(path_prefix, exp_config['baseline'] + current_difference,
+                                                   exp_config["task"])
 
-
+        # Create visualization for the current run
         create_visualization(differences, correct_responses, reversals_list, exp_config["task"], exp_data['subject'], exp_data['cur_date'], run)
 
         # after each run
@@ -222,12 +298,9 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             pause_text = f"Sie haben {run} von 3 Blöcken geschafft.\n Drücken Sie eine Taste, sobald Sie bereit sind, weiterzumachen."
             # display instructions and wait
             pause_stimulus = visual.TextStim(win,
-                                             alignText='center',
                                              color='black',
-                                             colorSpace='rgb',
                                              wrapWidth=2,
                                              height=0.1,
-                                             anchorHoriz='center',
                                              text=pause_text)
 
             pause_stimulus.draw()
@@ -235,49 +308,74 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             event.waitKeys()
             win.flip()
 
+    # Close the output file
     experiment_output.close()
 
+
 def run_practice_session(path_prefix, exp_data, exp_config, win):
+    """
+        Run a practice session for the experiment.
+
+        Args:
+            path_prefix (str): The path prefix for the stimulus files.
+            exp_data (dict): A dictionary containing experiment data (e.g., subject, date).
+            exp_config (dict): A dictionary containing experiment configuration (e.g., baseline, task).
+            win (visual.Window): A PsychoPy window object for rendering stimuli.
+    """
     session_type = "practice"
-    # all variables to be initialized
-    correct_responses_count = 0 # to be incremented- practice session stops after 4 correct responses
-    run = 0  # practice session has only one run
+    # Initialize variables
+    correct_responses_count = 0  # Incremented; practice session stops after 4 correct responses
+    run = 0  # Practice session has only one run
     current_difference = exp_config["initial_difference"]
     first_incorrect = False
     step_size = get_step_size(exp_config["task"], first_incorrect)
     two_down_one_up = False
     correct_in_a_row = 1
-    trial_index = 1  # the number of trials
+    trial_index = 1  # number of trials
     reversals = -1  # number of times the direction of the staircase is changed (up/down or down/up or none/down)
-    previous_direction = 'none' # this is why reversals has to be set to -1
+    previous_direction = 'none'  # this is why reversals has to be set to -1
 
+    # Generate baseline and test stimulus paths
     baseline_stimulus = generate_stimulus_path(path_prefix, exp_config["baseline"], exp_config["task"])
     test_value = exp_config["baseline"] + exp_config["initial_difference"]
     test_stimulus = generate_stimulus_path(path_prefix, test_value, exp_config["task"])
 
-    last_two_combinations = []  # to make sure there's no more than 3 in a row (AAB or ABB)
+    # List to ensure there's no more than 3 in a row (AAB or ABB)
+    last_two_combinations = []
 
-    # output file as csv with all relevant variable data
+    # Output file as csv with all relevant variable data
     output_filename = f"JND_{exp_config['task']}_{exp_data['subject']}_{date}_{hh_mm}_practice.csv"
     experiment_output = open(general_experiment_configs['output_path'] + output_filename, 'w')
     experiment_output.write(
-        'subject,date,task,session_type,run,trial,recording_A,recording_X,recording_B,response,correct,difference,step-size,reversals,direction\n')
+        'subject,'
+        'date,'
+        'task,'
+        'session_type,'
+        'run,'
+        'trial,'
+        'recording_A,'
+        'recording_X,'
+        'recording_B,'
+        'response,'
+        'correct,'
+        'difference,'
+        'step-size,'
+        'reversals,'
+        'direction\n')
 
-    # display instructions and wait
+    # Display instructions and wait
     instructions = visual.TextStim(win,
-                                   alignText='center',
                                    color='black',
-                                   colorSpace='rgb',
                                    wrapWidth=2,
                                    height=0.1,
-                                   anchorHoriz='center',
                                    text=exp_config["instructions"])
 
     instructions.draw()
-    win.flip()  # to display the message
+    win.flip()  # display the message
     event.waitKeys()  # wait until button is pressed
     win.flip()
 
+    # Continue until 4 correct responses are reached
     while correct_responses_count < 4:
         # randomization phase
         recording_A, recording_B = random.sample([baseline_stimulus, test_stimulus], k=2)
@@ -285,6 +383,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         x_key = random.choice(['left', 'right'])
         current_combination = f"left{x_key}right"
 
+        # Update last_two_combinations
         if len(last_two_combinations) < 2:
             last_two_combinations.append(current_combination)
         elif last_two_combinations[0] == last_two_combinations[1]:
@@ -307,6 +406,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         stimulus_B.play()
         time.sleep(get_duration(filename=recording_B) + 0.2)  # after 3rd stimulus wait 200ms
 
+        # Draw response options on screen
         AAB.draw()
         rightArrow.draw()
         ABB.draw()
@@ -317,10 +417,11 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         # evaluation phase
         key_choice_map = {'left': 'left', 'right': 'right'}
         participant_choice = key_choice_map.get(keys[0], None)
+
+        # Check if participant's choice is correct
         if participant_choice == x_key:  # correct
             feedback = visual.TextStim(win, text="Richtig!",
                                        color='black',
-                                       colorSpace='rgb',
                                        wrapWidth=2,
                                        height=0.2)
             feedback.draw()
@@ -342,7 +443,6 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         else:
             feedback = visual.TextStim(win, text="Falsch, versuchen Sie es bitte nochmal.",
                                        color='black',
-                                       colorSpace='rgb',
                                        wrapWidth=2,
                                        height=0.2)
             feedback.draw()
@@ -356,8 +456,9 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
             new_difference = current_difference + step_size
 
         win.flip()
-        core.wait(1) # inter trial interval
+        core.wait(1)  # inter trial interval
 
+        # Write trial data to output file
         experiment_output.write(','.join([exp_data['subject'],
                                           exp_data['cur_date'],
                                           exp_config['task'],
@@ -380,9 +481,11 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         current_difference = round(new_difference, 3)
         step_size = get_step_size(exp_config["task"], first_incorrect, test_difference=current_difference)
 
-        print("current-difference: " + str(current_difference) + " at " + str(trial_index))
-        print("step_size: " + str(step_size) + " at " + str(trial_index))
+        # IDE output for checking
+        """print("current-difference: " + str(current_difference) + " at " + str(trial_index))
+        print("step_size: " + str(step_size) + " at " + str(trial_index))"""
 
+        # Update reversal count and previous_direction
         if (previous_direction == 'down' and direction == 'up') or (
                 previous_direction == 'up' and direction == 'down') or (
                 previous_direction == 'none' and direction == 'down'):
@@ -391,4 +494,5 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         test_stimulus = generate_stimulus_path(path_prefix, exp_config['baseline'] + current_difference,
                                                exp_config["task"])
 
+    # Close the output file
     experiment_output.close()
