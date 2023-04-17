@@ -33,7 +33,7 @@ currentMonitor = monitors.Monitor(name='testMonitor')
 win = visual.Window(monitors.Monitor.getSizePix(currentMonitor),
                        monitor="testMonitor",
                        allowGUI=True,
-                       fullscr=False,
+                       fullscr=True,
                        color=(255, 255, 255)
                     )
 win.flip()
