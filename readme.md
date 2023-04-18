@@ -56,7 +56,12 @@ To open it, follow these steps:
   * `pip install -r requirements.txt`
 * This command will install all the necessary packages listed in the requirements.txt file.
 
-## 7. Running the Experiment
+## 7. Create Folders
+* Please create two folders on the same level as the audio or praat folder that already exists:
+  * folder: *results*
+  * folder: *plots*
+
+## 8. Running the Experiment
 To start and run the experiment, follow these steps:
 
 * Ensure the virtual environment is activated (you should see the virtual environment name in the command prompt).
@@ -64,7 +69,7 @@ To start and run the experiment, follow these steps:
 * Run the main Python script by typing the following command:
   * `python jnd_experiment.py`
 
-## 8. Experiment-Start
+## 9. Experiment-Start
 * First, a small dialogue window will appear. 
 * Enter the subject id and press "OK". 
 * The results will be recorded in the file "JND_*TaskName*\_*SUBJECT_ID*\_*timestamp*\_run_*Nr*.csv" in the "**results**" folder.
