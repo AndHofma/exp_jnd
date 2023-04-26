@@ -16,9 +16,9 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_to-be-manipulated\pitch\cut_name2\ch\"
+d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pitch\cut_name2\ch\"
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_manipulated\audio-pitch\wav_plus_textgrid\ch\"
+dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_005-semitones\"
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav
@@ -88,9 +88,8 @@ for i from 1 to n
     # calculate rise for original file - origRise (in semitones)
     origRise = 12*log2(h2/l2)
 
-    # amount of 0.1 semitone steps to get from origRise to flat: rise = btw (-1) and (+1)
-    # round to integer - get rid of decimal places
-    stepsFlatten = round((origRise) / 0.1)
+    # amount of 0.005 semitone steps to get from origRise to flat: rise = btw (-1) and (+1)
+    stepsFlatten = round((origRise) / 0.005)
 
     ################
     ## Data Table ##
@@ -104,31 +103,27 @@ for i from 1 to n
     ## f0 rise flatten continuum ##
     for x from 1 to stepsFlatten+1
         select Sound 'name$'
-        To Manipulation: 0.01, 75, 600
+        To Manipulation: 0.001, 75, 600
         Edit
         editor Manipulation 'name$'
 
         # delete all pitchpoints in name2 to the right of L2
-        # put a new pitch point with the new value for H2 at 80% of the final vowel (aka s8)
-        l2tpp = 'l2t' + 0.005
-        # variable for positioning H2
-        nh = s8/10*2
-        posh2new = ends8 - nh
+        l2tpp = 'l2t' + 0.001
         # variable for deleting pitch points next to L2
         Select: 'l2tpp', 'ends8'
         Remove pitch point(s)
 
         # get new h2Max value for each step
-        h2Max = 2^((origRise-((x-1)*0.1))/12) * l2
+        h2Max = l2 * 2^((origRise-(x*0.005))/12)
         # flatten variable to put in filename of new file
         # this value will be relevant to find correct stimulus later in JND script
-        currRise$ = fixed$ ((12*log2(h2Max/l2)), 1)
+        currRise$ = replace$(fixed$((12*log2(h2Max/l2)), 3), ".", "_", 0)
         # newRise same as currRise but as numeric for table output
         newRise = 12*log2(h2Max/l2)
         # diffRise numeric for table output
         diffRise = origRise - newRise
 
-        Add pitch point at: 'posh2new', 'h2Max'
+        Add pitch point at: 'h2t', 'h2Max'
 
         Publish resynthesis
         Close
@@ -138,15 +133,15 @@ for i from 1 to n
         Save as WAV file... 'dir$''name_new$'.wav
 
         select Table table
-        Set numeric value: x, "stepID", 'stepsFlatten:1'
+        Set numeric value: x, "stepID", 'x:1'
         Set string value: x, "filename", name$
         Set string value: x, "nameNew", name_new$
-        Set numeric value: x, "riseOrig", 'origRise:4'
-        Set numeric value: x, "l2Orig", 'l2:4'
-        Set numeric value: x, "h2Orig", 'h2:4'
-        Set numeric value: x, "riseNew", 'newRise:4'
-        Set numeric value: x, "h2New", 'h2Max:4'
-        Set numeric value: x, "diffRise", 'diffRise:4'
+        Set numeric value: x, "riseOrig", 'origRise:3'
+        Set numeric value: x, "l2Orig", 'l2:3'
+        Set numeric value: x, "h2Orig", 'h2:3'
+        Set numeric value: x, "riseNew", 'newRise:3'
+        Set numeric value: x, "h2New", 'h2Max:3'
+        Set numeric value: x, "diffRise", 'diffRise:3'
     endfor
 
     select Table table
@@ -155,9 +150,9 @@ for i from 1 to n
 
 endfor
 
-#########################################
-## Generate TextGrid for each wav file ##
-#########################################
+#########################################################################
+## Apply an offset cosine ramp and generate TextGrid for each wav file ##
+#########################################################################
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav
@@ -173,7 +168,13 @@ for i from 1 to n
 	Read from file... 'd$''filename$'
 	# store basename in variable name
 	name$ = selected$ ("Sound")
-	Read from file... 'd$''name$'.TextGrid
+
+	# Apply 80ms offset cosine ramp
+    end_time = Get end time
+    offset_ramp_time = 0.08
+    Formula: "if y > (end_time - offset_ramp_time) then self * cos((y - (end_time - offset_ramp_time)) / offset_ramp_time * pi / 2) else self endif"
+
+    Read from file... 'd$''name$'.TextGrid
 
 #############################################
 ## Read out information from original file ##
@@ -233,5 +234,6 @@ for i from 1 to n
 
 endfor
 
+# Clean up
 select all
 Remove

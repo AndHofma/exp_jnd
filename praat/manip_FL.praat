@@ -16,9 +16,9 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_to-be-manipulated\FL\cut_name2\ch\"
+d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s_test\"
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_manipulated\audio-FL\wav_plus_textgrid\ch\"
+dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s_test\"
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav
@@ -78,12 +78,10 @@ for i from 1 to n
         if label1$ == "name2"
             startn2 = Get start time of interval: 1, l
             endn2 = Get end time of interval: 1, l
-            tname = Get starting point: 1, l
             n2 = 'endn2' - 'startn2'
             # duration of rest of name2 (without s8)
 			rn2 = 'n2' - 's8'
-			s6reln2 = ('s6' * 100) / 'n2'
-			s8reln2 = ('s8' * 100) / 'n2'
+			s8FLOrig = ('s8' * 100) / 'n2'
         endif
     endfor
 
@@ -94,43 +92,43 @@ for i from 1 to n
     ## final lengthening - FL ##
     # min dur s8 - to end up with 1st and 2nd syll having same duration = no lengthening
     s8MinDur = s5 + s6 - s7
-    n2Min = s5 + s6 + s7 + s8MinDur
+    n2Min = rn2 + s8MinDur
     s8MinFL = ('s8MinDur' * 100) / 'n2Min'
-	# s8MinFL = (s6reln2/(100-s6reln2)) * rn2
 	# amount of 1ms steps to get from origFL to minFL
     # round to integer - get rid of decimal places
-    stepsFL = round((s8-s8MinDur) / 0.001)
+    stepsFL = round((s8-s8MinDur) / 0.0003)
+    # stepsFL = 546
+    starts8Manip = 'starts8' + (s8-s8MinDur)
+    s8Manip = 'ends8' - 'starts8Manip'
 
     ################
     ## Data Table ##
     ################
-    Create Table with column names: "table", stepsFL+1, "stepID filename nameNew s8Orig s8MinDur s8MinFL shortFC s8New diffS8 n2Orig n2Min n2New flOrig flNew diffFL diffSyllDur"
+    Create Table with column names: "table", stepsFL, "stepID filename nameNew s8Orig s8MinDur s8MinFL shortFC s8New diffS8 n2Orig n2Min n2New flOrig flNew diffFL diffSyllDur"
 
     ##################
     ## Manipulation ##
     ##################
 
     ## final lengthening - FL continuum ##
-    for x from 1 to stepsFL+1
+    for x from 1 to stepsFL
 
         select Sound 'name$'
-        To Manipulation: 0.01, 75, 600
+        To Manipulation: 0.001, 75, 600
         Edit
         editor Manipulation 'name$'
 
         # get new factor for shortening of s8 for each step
-        s8Manip = s8 - ((x-1) * 0.001)
-        s8ManipFac = s8MinDur/s8Manip
-        ends8Manip = 'ends8' - ((x-1) * 0.001)
+        s8ManipFac = (s8Manip - (x * 0.0003)) / s8Manip
 
         # duration points at the start and end points of s8
-        # and then two additional points with the factor of lengthening or shortening
-        # within ten percent of the duration of s8
+        # and then two additional points with the shortening factor
+        # within +/- 1ms
         # the four points should build a trapezium
-        innerstarts8 = starts8 + (s8Manip/100)
-        innerends8 = ends8Manip - (s8Manip/100)
-        Add duration point at: 'starts8', 1
-        Add duration point at: 'ends8Manip', 1
+        innerstarts8 = starts8Manip + 0.001
+        innerends8 = ends8 - 0.001
+        Add duration point at: 'starts8Manip', 1
+        Add duration point at: 'ends8', 1
         Add duration point at: 'innerstarts8', 's8ManipFac'
         Add duration point at: 'innerends8', 's8ManipFac'
 
@@ -140,18 +138,21 @@ for i from 1 to n
         ## values for table and naming
         # new s8 duration for each step
         n2New = Get duration
-        diff = 'n2' - 'n2New'
-        s8New = 's8' - 'diff'
+        s8New = 's8' - (x * 0.0003)
+
         # difference in s8 duration for each step
         diffs8 = 's8' - 's8New'
+
         # difference in syllable lengths (1st and 2nd)
         # this value will be relevant to find correct stimulus later in JND script
         diffSyllDur = (s8New + s7) - (s5 + s6)
-        currDiff$ = fixed$ (diffSyllDur, 3)
+        currDiff$ = replace$(fixed$ (diffSyllDur, 4), ".", "_", 0)
+
         # new relative FL for each step
         flNew = (s8New * 100) / 'n2New'
+
         # difference in relative FL for each step
-        diffFL = 's8reln2' - 'flNew'
+        diffFL = 's8FLOrig' - 'flNew'
 
         name_new$ = name$ + "_FL_" + currDiff$
         Rename: "'name_new$'"
@@ -161,19 +162,19 @@ for i from 1 to n
         Set numeric value: x, "stepID", 'x:1'
         Set string value: x, "filename", name$
         Set string value: x, "nameNew", name_new$
-        Set numeric value: x, "s8Orig", 's8:3'
-        Set numeric value: x, "s8MinDur", 's8MinDur:3'
-        Set numeric value: x, "s8MinFL", 's8MinFL:3'
-        Set numeric value: x, "shortFC", 's8ManipFac:3'
-        Set numeric value: x, "s8New", 's8New:3'
-        Set numeric value: x, "diffS8", 'diffs8:3'
-        Set numeric value: x, "n2Orig", 'n2:3'
-        Set numeric value: x, "n2Min", 'n2Min:3'
-        Set numeric value: x, "n2New", 'n2New:3'
-        Set numeric value: x, "flOrig", 's8reln2:3'
-        Set numeric value: x, "flNew", 'flNew:3'
-        Set numeric value: x, "diffFL", 'diffFL:3'
-        Set numeric value: x, "diffSyllDur", 'diffSyllDur:3'
+        Set numeric value: x, "s8Orig", 's8:4'
+        Set numeric value: x, "s8MinDur", 's8MinDur:4'
+        Set numeric value: x, "s8MinFL", 's8MinFL:4'
+        Set numeric value: x, "shortFC", 's8ManipFac:4'
+        Set numeric value: x, "s8New", 's8New:4'
+        Set numeric value: x, "diffS8", 'diffs8:4'
+        Set numeric value: x, "n2Orig", 'n2:4'
+        Set numeric value: x, "n2Min", 'n2Min:4'
+        Set numeric value: x, "n2New", 'n2New:4'
+        Set numeric value: x, "flOrig", 's8FLOrig:4'
+        Set numeric value: x, "flNew", 'flNew:4'
+        Set numeric value: x, "diffFL", 'diffFL:4'
+        Set numeric value: x, "diffSyllDur", 'diffSyllDur:4'
     endfor
 
     select Table table
@@ -182,9 +183,9 @@ for i from 1 to n
 
 endfor
 
-#########################################
+#########################################################################
 ## Generate TextGrid for each wav file ##
-#########################################
+#########################################################################
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav

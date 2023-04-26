@@ -16,10 +16,10 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_to-be-manipulated\pause\cut_name2_name3\03\"
+d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pause\cut_name2_name3\ch\"
 
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\phd_perception_production_link\dissertation\procedure_all\exp_jnd\stimuli_manipulated\audio-pause\wav_plus_textgrid\03\"
+dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pause\wav_plus_textgrid\ch\0_001-ms-test\"
 
 # opens the wav-files from a file
 Create Strings as file list... list1 'd$'*.wav
@@ -106,38 +106,38 @@ for i from 1 to n
     p3Min = 0
 	# amount of 5ms steps to get from p3 to p3Min
     # round to integer - get rid of decimal places
-    stepsPause = round(p3 / 0.005)
+    # stepsPause = round(p3 / 0.005)
+    # original pause = 550ms / 0.001 = 550 steps
+    stepsPause = 550
 
     ################
     ## Data Table ##
     ################
-    Create Table with column names: "table", stepsPause+1, "stepID filename nameNew p3Orig p3Min shortFC p3New uttDurOrig uttDurMin uttDurNew"
+    Create Table with column names: "table", stepsPause, "stepID filename nameNew p3Orig p3Min shortFC p3New uttDurOrig uttDurMin uttDurNew"
 
     ##################
     ## Manipulation ##
     ##################
 
     ## pause continuum ##
-    for x from 1 to stepsPause+1
+    for x from 1 to stepsPause
 
         select Sound 'name$'
-        To Manipulation: 0.01, 75, 600
+        To Manipulation: 0.005, 75, 600
         Edit
         editor Manipulation 'name$'
 
         # get new factor for shortening of pause for each step
-        p3Manip = p3 - ((x-1) * 0.005)
-        p3ManipFac = ((x-1) * 0.005) / p3
-        endp3Manip = 'endp3' - ((x-1) * 0.005)
+        p3ManipFac = (p3 - (x * 0.001)) / p3
 
-        # duration points at the start and end points of s8
-        # and then two additional points with the factor of lengthening or shortening
-        # within ten percent of the duration of s8
+        # duration points at the start and end points of p3
+        # and then two additional points with the shortening factor
+        # within +/- 1ms
         # the four points should build a trapezium
-        innerstartp3 = startp3 + (p3Manip/100)
-        innerendp3 = endp3Manip - (p3Manip/100)
+        innerstartp3 = startp3 + 0.001
+        innerendp3 = endp3 - 0.001
         Add duration point at: 'startp3', 1
-        Add duration point at: 'endp3Manip', 1
+        Add duration point at: 'endp3', 1
         Add duration point at: 'innerstartp3', 'p3ManipFac'
         Add duration point at: 'innerendp3', 'p3ManipFac'
 
@@ -150,9 +150,8 @@ for i from 1 to n
         ## values for table and naming
         # new p3 duration for each step
         durSound = Get duration
-        diff = 'uttDur' - 'durSound'
-        p3New = 'p3' - 'diff'
-        currp3$ = fixed$ (p3New, 3)
+        p3New = 'p3' - (x * 0.001)
+        currp3$ = replace$(fixed$ (p3New, 3), ".", "_", 0)
 
         name_new$ = name$ + "_pause_" + currp3$
         Rename: "'name_new$'"
@@ -162,23 +161,23 @@ for i from 1 to n
         Set numeric value: x, "stepID", 'x:1'
         Set string value: x, "filename", name$
         Set string value: x, "nameNew", name_new$
-        Set numeric value: x, "p3Orig", 'p3:4'
-        Set numeric value: x, "p3Min", 'p3Min:4'
-        Set numeric value: x, "shortFC", 'p3ManipFac:4'
-        Set numeric value: x, "p3New", 'p3New:4'
-        #Set numeric value: x, "diffp3", 'diffp3:4'
-        Set numeric value: x, "uttDurOrig", 'uttDur:4'
-        Set numeric value: x, "uttDurMin", 'uttDurMin:4'
-        Set numeric value: x, "uttDurNew", 'durSound:4'
+        Set numeric value: x, "p3Orig", 'p3:3'
+        Set numeric value: x, "p3Min", 'p3Min:3'
+        Set numeric value: x, "shortFC", 'p3ManipFac:3'
+        Set numeric value: x, "p3New", 'p3New:3'
+        #Set numeric value: x, "diffp3", 'diffp3:3'
+        Set numeric value: x, "uttDurOrig", 'uttDur:3'
+        Set numeric value: x, "uttDurMin", 'uttDurMin:3'
+        Set numeric value: x, "uttDurNew", 'durSound:3'
     endfor
 
     select Table table
     table_name$ = "manipulation_pause_" + name$
     Save as tab-separated file... 'dir$' 'table_name$'.csv
 
-    #########################################
-    ## Generate TextGrid for each wav file ##
-    #########################################
+    #########################################################################
+    ## Apply an offset cosine ramp and generate TextGrid for each wav file ##
+    #########################################################################
 
     # opens the wav-files from a file
     Create Strings as file list... list 'dir$'*.wav
@@ -194,6 +193,12 @@ for i from 1 to n
         name1$ = selected$ ("Sound")
         # query information on condition
         select Sound 'name1$'
+
+        # Apply 20ms offset cosine ramp
+        end_time = Get end time
+        offset_ramp_time = 0.02
+        Formula: "if y > (end_time - offset_ramp_time) then self * cos((y - (end_time - offset_ramp_time)) / offset_ramp_time * pi / 2) else self endif"
+
         # subtract last four elements (.wav)
         length = length (name1$)
         partName$ = left$(name1$,length)
