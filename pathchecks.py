@@ -5,7 +5,7 @@ Verify existence of audio file directories / files in the directories
 import os
 
 
-def check_config_paths(base_input_path, tasks, output_path):
+def check_config_paths(base_input_path, tasks, output_path, plot_path):
     """
         Function checks the existence of specific directories and raises
         exceptions with appropriate error messages if any of the directories are not found.
@@ -23,6 +23,9 @@ def check_config_paths(base_input_path, tasks, output_path):
     # Check if the output directory exists, if not, create it
     if not os.path.exists(output_path):
         os.mkdir(output_path)
+        # Check if the output directory exists, if not, create it
+    if not os.path.exists(plot_path):
+        os.mkdir(plot_path)
 
 
 def stimulus_exists(stim_path):
