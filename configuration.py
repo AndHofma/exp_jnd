@@ -10,10 +10,10 @@ import random
 
 # General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
-                              "num_runs": 2,
-                              "num_trials_each_run": 100,
+                              "num_trials": 100,
                               "base_stimuli_path": 'audio/',  # input path is generated as base_stimuli_path+task name
-                              "output_path": 'results/'}
+                              "output_path": 'results/',
+                              "plot_path": 'plots/'}
 
 
 # Randomize the order of tasks - between subjects design
@@ -31,38 +31,41 @@ def get_task_specific_config(task):
         Returns:
             dict: A dictionary containing task-specific configuration settings.
     """
-    config = {"task": "", "stim_prefix": "", "instructions": "",
+    config = {"task": "",
+              "stim_prefix": "",
+              "instructions": "",
               "stimuli_path": "",
-              "baseline": 0, "initial_difference": 0}
+              "baseline": 0,
+              "initial_difference": 0}
     if task == "pitch":
         config['task'] = "pitch"
         config['stim_prefix'] = f'nelli_ch_rise'
-        config['baseline'] = 0.0
-        config['initial_difference'] = 13.1
+        config['baseline'] = 0.000
+        config['initial_difference'] = 13.112
     elif task == "pause":
         config['task'] = "pause"
         config['stim_prefix'] = f'lilli_lisa_ch_{task}'
-        config['baseline'] = 0.005
-        config['initial_difference'] = 0.545
+        config['baseline'] = 0.000
+        config['initial_difference'] = 0.550
     elif task == "FL":
         config['task'] = "FL"
         config['stim_prefix'] = f'mimmi_ch_{task}'
-        config['baseline'] = 0.002
-        config['initial_difference'] = 0.162
+        config['baseline'] = 0.0000
+        config['initial_difference'] = 0.1639
     else:
         raise Exception(f"No configs for task {task} specified")
 
     # Assign task-specific instructions
-    if randomized_tasks[0] == 'pitch' or randomized_tasks[0] == 'FL':
+    if task == 'pitch' or task == 'FL':
         config['instructions'] = pitch_FL_text
-    elif randomized_tasks[0] == 'pause':
+    elif task == 'pause':
         config['instructions'] = pause_text
 
-    config["stimuli_path"] = f"{general_experiment_configs['base_stimuli_path']}audio-{task}/ch/"
+    config["stimuli_path"] = f"{general_experiment_configs['base_stimuli_path']}audio-{task}/"
     return config
 
 
-def get_step_size(task, first_incorrect=False, test_difference=5.0):
+def get_step_size(task, test_difference=13.0000):
     """
         Get the step size for the specified task.
 
@@ -75,23 +78,30 @@ def get_step_size(task, first_incorrect=False, test_difference=5.0):
             float: The step size for the task.
     """
     if task == "pitch":
-        if test_difference <= 2:
-            return 0.1
-        elif first_incorrect:
-            return 0.3
+        if test_difference <= 0.312:
+            return 0.005
+        elif test_difference <= 1.412:
+            return 0.100
+        elif test_difference <= 5.612:
+            return 0.300
         else:
-            return 0.5
-    if task == "FL":
-        if test_difference <= 0.02:
+            return 0.500
+    elif task == "pause":
+        if test_difference <= 0.060:
             return 0.001
-        elif first_incorrect:
-            return 0.003
-        else:
+        elif test_difference <= 0.120:
             return 0.005
-    if task == "pause":
-        if test_difference <= 0.095:
-            return 0.005
-        elif first_incorrect:
-            return 0.010
-        else:
+        elif test_difference <= 0.300:
             return 0.015
+        else:
+            return 0.025
+    elif task == "FL":
+        if test_difference <= 0.0169:
+            return 0.0003
+        elif test_difference <= 0.0457:
+            return 0.0018
+        elif test_difference <= 0.0889:
+            return 0.0036
+        else:
+            return 0.0075
+
