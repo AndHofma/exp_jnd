@@ -8,9 +8,22 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 from matplotlib.patches import Patch, Rectangle, Circle
 from matplotlib.legend_handler import HandlerPatch
+from configuration import *
 
 
-def create_visualization(differences, correct_responses, reversals_list, task, subject, date, run, file_format='png'):
+def calculate_threshold(reversals, num_reversals=6):
+    if len(reversals) < num_reversals:
+        selected_reversals = reversals
+    else:
+        selected_reversals = reversals[-num_reversals:]
+
+    mean_threshold = np.mean(selected_reversals)
+    median_threshold = np.median(selected_reversals)
+
+    return mean_threshold, median_threshold, selected_reversals
+
+
+def create_visualization(differences, correct_responses, reversals_list, task, subject, date, selected_reversals, file_format='png'):
     """
         Create and save a visualization of an adaptive staircase experiment with given data.
         :param differences: List of difference values between stimuli for each trial.
@@ -19,39 +32,48 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
         :param task: String representing the name of the task.
         :param subject: String representing the subject identifier.
         :param date: String representing the date of the experiment.
-        :param run: String representing the run number.
         :param file_format: Optional, the file format for saving the plot, default is 'png'.
     """
-    # Calculate the threshold value = mean of difference values at last 6 reversals
-    threshold = np.mean(differences[-6:]) if len(reversals_list) >= 6 else differences[0]
+
     # Identify the index positions where the reversals_list values change
     reversal_indices = [i-1 for i in range(1, len(reversals_list)) if reversals_list[i] != reversals_list[i - 1]]
 
+    # Create a list of reversal differences using the reversal_indices
+    reversal_difference = [differences[index] for index in reversal_indices]
+
     # Output in IDE - for checking
-    """reversal_difference = [differences[index] for index in reversal_indices]
-    print("Difference values at reversal_indices:", reversal_difference)"""
+    print("Difference values at reversal_indices:", reversal_difference)
+
+    # Calculate the threshold value = mean and median of difference values at last 6 reversals
+    mean_threshold, median_threshold, selected_reversals = calculate_threshold(reversal_difference)
 
     # Initialize the plot
     plt.figure(figsize=(10, 5))
     plt.plot(differences, color='black', linestyle='-', linewidth=1)
-    plt.axhline(y=threshold, color='gray', linestyle='--', linewidth=1)
+    y_min = min(differences) - 0.1 * (max(differences) - min(differences)) # adapt y-axis to scale of the data
+    y_max = max(differences) + 0.1 * (max(differences) - min(differences))
+    plt.ylim(y_min, y_max)
+    plt.axhline(y=mean_threshold, color='gray', linestyle='--', linewidth=1)
 
     # Plot the data points with corresponding markers and colors
     for i, (difference, correct) in enumerate(zip(differences, correct_responses)):
         marker = 'o' if i in reversal_indices else 's'
         color = 'green' if correct else 'red'
-        plt.scatter(i, difference, marker=marker, color=color, s=50, edgecolors='black')
+        plt.scatter(i, difference, marker=marker, color=color, s=30, edgecolors='black')
         if i in reversal_indices:
-            plt.annotate(f"{round(difference, 3)}", (i, difference), textcoords="offset points", xytext=(0, 10),
+            text_offset_y = 10 if i % 2 == 0 else -20  # Alternating the text position above and below the marker
+            plt.annotate(f"{round(difference, 3)}", (i, difference), textcoords="offset points",
+                         xytext=(0, text_offset_y),
                          ha='center',
-                         fontsize=9)
+                         fontsize=8)
+
 
     # Custom legend handlers
     class CircleHandler(HandlerPatch):
         """
-        Custom legend handler class for circle-shaped patches.
-        Inherits from matplotlib.legend_handler.HandlerPatch.
-        """
+            Custom legend handler class for circle-shaped patches.
+            Inherits from matplotlib.legend_handler.HandlerPatch.
+            """
         def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans):
             """
             Create a circle-shaped artist for the legend.
@@ -101,7 +123,8 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
     # Create legend elements
     staircase_line = mlines.Line2D([], [], color='black', linestyle='-', linewidth=1, label='Staircase')
     threshold_line = mlines.Line2D([], [], color='gray', linestyle='--', linewidth=1,
-                                   label=f'Threshold (mean last 6 reversals_list) = {round(threshold, 2)}')
+                                   label=f'Threshold (mean: {round(mean_threshold, 2)}, '
+                                         f'median: {round(median_threshold, 2)} of {(len(selected_reversals))} reversals)')
 
     correct_patch = Patch(facecolor='green', label='Correct Response', linewidth=1, edgecolor='black')
     incorrect_patch = Patch(facecolor='red', label='Incorrect Response', linewidth=1, edgecolor='black')
@@ -110,7 +133,7 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
     # Set labels and title
     plt.xlabel('Trial Number')
     plt.ylabel(task + ' difference')
-    plt.title('Adaptive Staircase Design - Switching to 2-down-1-up after First Incorrect Response')
+    plt.title(f'Just-Noticeable Difference Adaptive Staircase Task for subject: {subject} and cue: {task} ')
     # Add the legend to the plot
     plt.legend(handles=[staircase_line, threshold_line, correct_patch, incorrect_patch, reversal_patch],
                handler_map={reversal_patch: CircleHandler(),
@@ -120,11 +143,12 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
     plt.grid(True)
 
     # Save the plot as a file
-    file_name = f"plots/{subject}_{date}_{task}_{run}.{file_format}"
-    plt.savefig(file_name, dpi=300, bbox_inches='tight')
+    file_name = f"{subject}_{date}_{task}.{file_format}"
+    plt.savefig(general_experiment_configs['plot_path'] + file_name, dpi=300, bbox_inches='tight')
 
     # Show the plot
-    plt.show()
+    # plt.show()
+    return selected_reversals
 
 
 if __name__ == "__main__":
