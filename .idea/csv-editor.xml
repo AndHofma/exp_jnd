@@ -24,13 +24,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_005-semitones\ manipulation_pitch_nelli_ch.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="&#9;" />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_005-semitones\manipulation_pitch_nelli_ch.csv">
           <value>
             <Attribute>
@@ -39,13 +32,6 @@
           </value>
         </entry>
         <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_02-semitones\manipulation_pitch_nelli_ch.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="&#9;" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_02-test\ manipulation_pitch_nelli_ch.csv">
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
@@ -70,153 +56,6 @@
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-21_15h44_practice.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-21_16h01_practice.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-21_16h30_practice.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-21_16h48_practice.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-21_18h48_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-24_10h14_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-24_11h11_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-25_10h11.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-25_12h16_practice.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-25_14h50.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-25_15h30.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_FL_SUBJECT_ID_2023-04-26_13h04.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-21_15h04_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-24_12h17_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-25_10h11.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-25_12h16.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-26_13h04.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pause_SUBJECT_ID_2023-04-26_13h39.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pitch_SUBJECT_ID_2023-04-24_10h14_run_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pitch_SUBJECT_ID_2023-04-25_10h11.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\results\JND_pitch_SUBJECT_ID_2023-04-25_12h16.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>

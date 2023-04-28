@@ -1,4 +1,4 @@
-# Step-by-step guide on running the jnd_task properly
+# Step-by-step guide
 
 The staircase algorithm follows a similar approach as Smith et al. in [Contributions of Auditory and Somatosensory Feedback to Vocal Motor Control](https://pubs.asha.org/doi/full/10.1044/2020_JSLHR-19-00296) by Smith et al. 
 We used [PsychoPy](https://www.psychopy.org/) to set up the experiment.
@@ -56,12 +56,19 @@ To open it, follow these steps:
   * `pip install -r requirements.txt`
 * This command will install all the necessary packages listed in the requirements.txt file.
 
-## 7. Create Folders
-* Please create two folders on the same level as the audio or praat folder that already exists:
-  * folder: *results*
-  * folder: *plots*
+### 6A. Checking for Microsoft Visual C++ 14.0 or greater and installing if necessary
+* Some Python packages need Microsoft Visual C++ 14.0 or a newer version to work.
+* If you get an error message, e.g. "Microsoft Visual C++ 14.0 or greater is required." - you have o install the required tools and follow these steps:
+  * a. Visit the following link to download the "Build Tools for Visual Studio":
+    * https://visualstudio.microsoft.com/visual-cpp-build-tools/
+  * b. On the webpage, click on the "Download" button under "Build Tools for Visual Studio 2022".
+  * c. Run the downloaded installer. During the installation process, make sure to choose the "C++ build tools" option. Additionally, ensure that "MSVC v142 - VS 2019 C++ x64/x86 build tools" or a later version and the "Windows 10 SDK" components are selected.
+  * d. Continue with the installation. After it's finished, restart your computer to make sure the new tools are set up correctly on your system.
+* These instructions will guide you through the process of installing the Microsoft C++ Build Tools, which include the necessary Microsoft Visual C++ version for your Python packages.
 
-## 8. Running the Experiment
+After finishing this step go back to step 6.
+
+## 7. Running the Experiment
 To start and run the experiment, follow these steps:
 
 * Ensure the virtual environment is activated (you should see the virtual environment name in the command prompt).
@@ -69,7 +76,7 @@ To start and run the experiment, follow these steps:
 * Run the main Python script by typing the following command:
   * `python jnd_experiment.py`
 
-## 9. Experiment-Start
+## 8. Experiment-Start
 * First, a small dialogue window will appear. 
 * Enter the subject id and press "OK". 
 * The results will be recorded in the file "JND_*TaskName*\_*SUBJECT_ID*\_*timestamp*\_run_*Nr*.csv" in the "**results**" folder.
