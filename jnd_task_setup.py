@@ -183,25 +183,27 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win, run)
     last_two_combinations = []  # to make sure there's no more than 3 in a row (AAB or ABB)
 
     # Set up the output file
-    output_filename = f"JND_{exp_config['task']}_{exp_data['subject']}_{date}_{hh_mm}.csv"
+    output_filename = f"JND_{exp_config['task']}_{exp_data['subject_ID']}_{date}_{hh_mm}.csv"
     experiment_output = open(general_experiment_configs['output_path'] + output_filename, 'w')
-    experiment_output.write('subject,'
-                            'date,'
-                            'task,'
-                            'session_type,'
-                            'trial,'
-                            'start_time,'
-                            'end_time,'
-                            'duration,'
-                            'recording_A,'
-                            'recording_X,'
-                            'recording_B,'
-                            'response,'
-                            'correct,'
-                            'difference,'
-                            'step-size,'
-                            'reversals,'
-                            'direction\n')
+    experiment_output.write(
+        'experiment,'
+        'subject_ID,'
+        'date,'
+        'task,'
+        'session_type,'
+        'trial,'
+        'start_time,'
+        'end_time,'
+        'duration,'
+        'recording_A,'
+        'recording_X,'
+        'recording_B,'
+        'response,'
+        'correct,'
+        'difference,'
+        'step-size,'
+        'reversals,'
+        'direction\n')
 
     start_time = time.time()  # record duration of run of each task - start timer
     start_time_str = datetime.datetime.fromtimestamp(start_time).strftime('%H:%M:%S')
@@ -306,23 +308,26 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win, run)
             duration_str = '{:02d}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
 
         # write the trial data to the output file
-        experiment_output.write(','.join([exp_data['subject'],
-                                          exp_data['cur_date'],
-                                          exp_config['task'],
-                                          session_type,
-                                          str(trial_index + 1),
-                                          start_time_str,
-                                          end_time_str,
-                                          duration_str,
-                                          recording_A,
-                                          recording_X,
-                                          recording_B,
-                                          participant_choice,
-                                          str(correct),
-                                          str(current_difference),
-                                          str(step_size),
-                                          str(reversals),
-                                          direction]) + '\n')
+        experiment_output.write(','.join([
+            exp_data['experiment'],
+            exp_data['subject_ID'],
+            exp_data['cur_date'],
+            exp_config['task'],
+            session_type,
+            str(trial_index + 1),
+            start_time_str,
+            end_time_str,
+            duration_str,
+            recording_A,
+            recording_X,
+            recording_B,
+            participant_choice,
+            str(correct),
+            str(current_difference),
+            str(step_size),
+            str(reversals),
+            direction]) + '\n')
+
         experiment_output.flush()
         differences.append(current_difference)
 
@@ -364,7 +369,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win, run)
     mean_threshold, median_threshold, selected_reversals = calculate_threshold(reversal_difference)
 
     # Create visualization for the current run
-    create_visualization(differences, correct_responses, reversals_list, exp_config["task"], exp_data['subject'],
+    create_visualization(differences, correct_responses, reversals_list, exp_config["task"], exp_data['subject_ID'],
                          exp_data['cur_date'], selected_reversals)
 
     # after each task
@@ -389,7 +394,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
 
         Args:
             path_prefix (str): The path prefix for the stimulus files.
-            exp_data (dict): A dictionary containing experiment data (e.g., subject, date).
+            exp_data (dict): A dictionary containing experiment data (e.g., subject_ID, date, experiment).
             exp_config (dict): A dictionary containing experiment configuration (e.g., baseline, task).
             win (visual.Window): A PsychoPy window object for rendering stimuli.
     """
@@ -415,26 +420,28 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
     last_two_combinations = []
 
     # Output file as csv with all relevant variable data
-    output_filename = f"JND_{exp_config['task']}_{exp_data['subject']}_{date}_{hh_mm}_practice.csv"
+    output_filename = f"JND_{exp_config['task']}_{exp_data['subject_ID']}_{date}_{hh_mm}_practice.csv"
     experiment_output = open(general_experiment_configs['output_path'] + output_filename, 'w')
-    experiment_output.write('subject,'
-                            'date,'
-                            'task,'
-                            'session_type,'
-                            'run,'
-                            'trial,'
-                            'start_time,'
-                            'end_time,'
-                            'duration,'
-                            'recording_A,'
-                            'recording_X,'
-                            'recording_B,'
-                            'response,'
-                            'correct,'
-                            'difference,'
-                            'step-size,'
-                            'reversals,'
-                            'direction\n')
+    experiment_output.write(
+        'experiment,'
+        'subject_ID,'
+        'date,'
+        'task,'
+        'session_type,'
+        'run,'
+        'trial,'
+        'start_time,'
+        'end_time,'
+        'duration,'
+        'recording_A,'
+        'recording_X,'
+        'recording_B,'
+        'response,'
+        'correct,'
+        'difference,'
+        'step-size,'
+        'reversals,'
+        'direction\n')
 
     # Display instructions and wait
     instructions = visual.TextStim(win,
@@ -554,24 +561,26 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         duration_str = '{:02d}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
 
         # Write trial data to output file
-        experiment_output.write(','.join([exp_data['subject'],
-                                          exp_data['cur_date'],
-                                          exp_config['task'],
-                                          session_type,
-                                          str(run),
-                                          str(trial_index),
-                                          start_time_str,
-                                          end_time_str,
-                                          duration_str,
-                                          recording_A,
-                                          recording_X,
-                                          recording_B,
-                                          participant_choice,
-                                          str(correct),
-                                          str(current_difference),
-                                          str(step_size),
-                                          str(reversals),
-                                          direction]) + '\n')
+        experiment_output.write(','.join([
+            exp_data['experiment'],
+            exp_data['subject_ID'],
+            exp_data['cur_date'],
+            exp_config['task'],
+            session_type,
+            str(run),
+            str(trial_index),
+            start_time_str,
+            end_time_str,
+            duration_str,
+            recording_A,
+            recording_X,
+            recording_B,
+            participant_choice,
+            str(correct),
+            str(current_difference),
+            str(step_size),
+            str(reversals),
+            direction]) + '\n')
         experiment_output.flush()
 
         # prepare for the next iteration
