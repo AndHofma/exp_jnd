@@ -1,6 +1,6 @@
 # Step-by-step guide
 
-The staircase algorithm follows a similar approach as Smith et al. in [Contributions of Auditory and Somatosensory Feedback to Vocal Motor Control](https://pubs.asha.org/doi/full/10.1044/2020_JSLHR-19-00296) by Smith et al. 
+The staircase algorithm follows a similar approach as [Contributions of Auditory and Somatosensory Feedback to Vocal Motor Control](https://pubs.asha.org/doi/full/10.1044/2020_JSLHR-19-00296) by Smith et al. 
 We used [PsychoPy](https://www.psychopy.org/) to set up the experiment.
 
 This README file provides a comprehensive guide to setting up and running the experimental task 
@@ -67,6 +67,11 @@ To open it, follow these steps:
 * These instructions will guide you through the process of installing the Microsoft C++ Build Tools, which include the necessary Microsoft Visual C++ version for your Python packages.
 
 After finishing this step go back to step 6.
+
+## 7. Audio files for **audio-pitch**
+* The folder **audio-pitch** includes 2624 wav files (plus a csv file).
+* Since this the limitation for maximum number of files on Github - I used *7-zip* to compress and store the files.
+* Before you run the experiment - unzip the file *audio-pitch.7z* and make sure that **audio-pitch** has 2625 files (2624 wav files plus 1 csv file). 
 
 ## 7. Running the Experiment
 To start and run the experiment, follow these steps:
