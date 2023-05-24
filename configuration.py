@@ -6,11 +6,12 @@ and calculating appropriate step sizes for each trial.
 
 from resources import pitch_FL_text, pause_text
 import random
+from psychopy import monitors, visual
 
 
 # General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
-                              "num_trials": 100,
+                              "num_trials": 10,
                               "base_stimuli_path": 'audio/',  # input path is generated as base_stimuli_path+task name
                               "output_path": 'results/',
                               "plot_path": 'plots/'}
@@ -19,6 +20,25 @@ general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
 # Randomize the order of tasks - between subjects design
 randomized_tasks = random.sample(general_experiment_configs["task_types"],
                                  k=len(general_experiment_configs["task_types"]))
+
+
+def create_window():
+    """
+    Create and initialize the experiment window.
+
+    Returns:
+    win : A PsychoPy visual.Window object for the experiment.
+    """
+    # Create a monitor object
+    currentMonitor = monitors.Monitor(name='testMonitor')
+
+    # Create and return a window for the experiment
+    return visual.Window(monitors.Monitor.getSizePix(currentMonitor),
+                         monitor="testMonitor",
+                         allowGUI=True,
+                         fullscr=True,
+                         color=(255, 255, 255)
+                         )
 
 
 def get_task_specific_config(task):
@@ -71,7 +91,6 @@ def get_step_size(task, test_difference=13.0000):
 
         Args:
             task (str): The task name ("pitch", "FL", or "pause").
-            first_incorrect (bool, optional): Whether the first incorrect response has occurred. Default is False.
             test_difference (float, optional): The current difference between test and baseline stimuli. Default is 5.0.
 
         Returns:
