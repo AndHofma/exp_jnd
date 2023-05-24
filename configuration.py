@@ -11,7 +11,7 @@ from psychopy import monitors, visual
 
 # General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
-                              "num_trials": 10,
+                              "num_trials": 100,
                               "base_stimuli_path": 'audio/',  # input path is generated as base_stimuli_path+task name
                               "output_path": 'results/',
                               "plot_path": 'plots/'}
