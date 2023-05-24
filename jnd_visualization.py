@@ -9,6 +9,8 @@ import matplotlib.lines as mlines
 from matplotlib.patches import Patch, Rectangle, Circle
 from matplotlib.legend_handler import HandlerPatch
 from configuration import *
+import os
+from datetime import datetime
 
 
 def calculate_threshold(reversals, num_reversals=6):
@@ -23,7 +25,7 @@ def calculate_threshold(reversals, num_reversals=6):
     return mean_threshold, median_threshold, selected_reversals
 
 
-def create_visualization(differences, correct_responses, reversals_list, task, subject, date, selected_reversals, file_format='png'):
+def create_visualization(differences, correct_responses, reversals_list, task, subject, file_format='png'):
     """
         Create and save a visualization of an adaptive staircase experiment with given data.
         :param differences: List of difference values between stimuli for each trial.
@@ -31,7 +33,6 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
         :param reversals_list: List of reversal points in the experiment.
         :param task: String representing the name of the task.
         :param subject: String representing the subject identifier.
-        :param date: String representing the date of the experiment.
         :param file_format: Optional, the file format for saving the plot, default is 'png'.
     """
 
@@ -42,7 +43,7 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
     reversal_difference = [differences[index] for index in reversal_indices]
 
     # Output in IDE - for checking
-    print("Difference values at reversal_indices:", reversal_difference)
+    #print("Difference values at reversal_indices:", reversal_difference)
 
     # Calculate the threshold value = mean and median of difference values at last 6 reversals
     mean_threshold, median_threshold, selected_reversals = calculate_threshold(reversal_difference)
@@ -142,14 +143,22 @@ def create_visualization(differences, correct_responses, reversals_list, task, s
                loc='upper right')
     plt.grid(True)
 
-    # Save the plot as a file
-    file_name = f"{subject}_{date}_{task}.{file_format}"
-    plt.savefig(general_experiment_configs['plot_path'] + file_name, dpi=300, bbox_inches='tight')
+    # path setup results per participant
+    # Define the path in results for each subject
+    subj_path_plots = os.path.join(general_experiment_configs['plot_path'], subject)
+    # Create the directory if it doesn't exist
+    if not os.path.exists(subj_path_plots):
+        os.makedirs(subj_path_plots)
+
+    # Get the current date and time
+    now = datetime.now()
+    # Format it as a string
+    date_string = now.strftime("%Y-%m-%d_%H-%M-%S")
+    # Set up the output file
+    file_name = f"{subject}_{date_string}_{task}.{file_format}"
+    plt.savefig(os.path.join(subj_path_plots, file_name), dpi=300, bbox_inches='tight')
 
     # Show the plot
     # plt.show()
     return selected_reversals
 
-
-if __name__ == "__main__":
-    create_visualization()
