@@ -13,13 +13,14 @@ Adapted Version by: Andrea Hofmann
 """
 
 
-from psychopy import core, visual, event, prefs
+from psychopy import core, visual, event
 from configuration import general_experiment_configs, randomized_tasks, create_window
 from jnd_task_setup import run_jnd_task, get_participant_info
 from pathchecks import check_config_paths
 from resources import get_instruction_text
 
-prefs.hardware['audioLib'] = ['PTB', 'sounddevice', 'pyo', 'pygame']
+
+#prefs.hardware['audioLib'] = ['pygame', 'PTB', 'sounddevice', 'pyo']
 
 # Check if input and output paths exist
 check_config_paths(general_experiment_configs["base_stimuli_path"],

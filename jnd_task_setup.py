@@ -12,7 +12,12 @@ odd-one-out forced-choice task with 3 sequentially auditory presented stimuli
 """
 
 
-from psychopy import sound, visual, event, core, gui
+from psychopy import visual, event, core, gui
+from psychopy import prefs
+# Set the audio library preference
+prefs.hardware['audioLib'] = ['pygame', 'pyo', 'PTB', 'sounddevice']
+# Now, import sound
+from psychopy import sound
 import random
 import time
 import datetime
