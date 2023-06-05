@@ -20,8 +20,6 @@ from pathchecks import check_config_paths
 from resources import get_instruction_text
 
 
-#prefs.hardware['audioLib'] = ['pygame', 'PTB', 'sounddevice', 'pyo']
-
 # Check if input and output paths exist
 check_config_paths(general_experiment_configs["base_stimuli_path"],
                    general_experiment_configs["task_types"],
