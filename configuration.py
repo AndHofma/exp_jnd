@@ -22,6 +22,29 @@ randomized_tasks = random.sample(general_experiment_configs["task_types"],
                                  k=len(general_experiment_configs["task_types"]))
 
 
+# def create_window():
+#     """
+#    Create and initialize the experiment window.
+#
+#    Returns:
+#    win: A PsychoPy visual.Window object for the experiment.
+#   """
+#    # Create a monitor object for the second screen
+#    second_monitor = monitors.Monitor(name='EA273WMi')
+#    # Set the appropriate settings for the second monitor
+#    second_monitor.setSizePix((1920, 1080))  # Set the desired resolution of the second screen
+#
+#    # Create and return a window for the experiment on the second monitor
+#    return visual.Window(monitor=second_monitor,  # Use the second monitor
+#                         size=(1920, 1080),
+#                         screen=1,  # Specify the index of the second screen (0 for the first screen, 1 for the second, etc.)
+#                         allowGUI=True,
+#                         fullscr=True,
+#                         color=(255, 255, 255)
+#                         )
+
+
+# to use for testing on laptop
 def create_window():
     """
     Create and initialize the experiment window.
