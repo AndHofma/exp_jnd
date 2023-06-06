@@ -148,12 +148,12 @@ def run_jnd_task(exp_data, task, win, session_type='trial'):
                                 name='left_arrow')
 
     # pics recording
-    global rec_center
+    global audio_center
     # Center position
-    rec_center = visual.ImageStim(win,
-                                  image='pic/rec.png',
-                                  pos=(0, 0),
-                                  name='rec_center')
+    audio_center = visual.ImageStim(win,
+                                    image='pic/audio.png',
+                                    pos=(0, 0),
+                                    name='rec_center')
 
     exp_config = get_task_specific_config(task)
     path_prefix = f'{exp_config["stimuli_path"]}{exp_config["stim_prefix"]}'
@@ -265,7 +265,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
 
             # Play stimulus_A and show rec_center - stays on until all stimuli played
             stimulus_A.play()
-            rec_center.draw()
+            audio_center.draw()
             win.flip()
             time.sleep(get_duration(filename=recording_A) + 0.7)  # inter stimulus interval 500ms
             # Play stimulus_X
@@ -517,7 +517,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
             stimulus_X = sound.Sound(recording_X)
             # Play stimulus_A and show rec_center
             stimulus_A.play()
-            rec_center.draw()
+            audio_center.draw()
             win.flip()
             time.sleep(get_duration(filename=recording_A) + 0.7)  # inter stimulus interval 500ms
             # Play stimulus_X
