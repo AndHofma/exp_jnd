@@ -151,9 +151,9 @@ def run_jnd_task(exp_data, task, win, session_type='trial'):
     global audio_center
     # Center position
     audio_center = visual.ImageStim(win,
-                                    image='pic/audio.png',
-                                    pos=(0, 0),
-                                    name='rec_center')
+                                  image='pic/audio.png',
+                                  pos=(0, 0),
+                                  name='audio_center')
 
     exp_config = get_task_specific_config(task)
     path_prefix = f'{exp_config["stimuli_path"]}{exp_config["stim_prefix"]}'
@@ -267,10 +267,10 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             stimulus_A.play()
             audio_center.draw()
             win.flip()
-            time.sleep(get_duration(filename=recording_A) + 0.7)  # inter stimulus interval 500ms
+            time.sleep(get_duration(filename=recording_A) + 0.7)  # inter stimulus interval 700ms
             # Play stimulus_X
             stimulus_X.play()
-            time.sleep(get_duration(filename=recording_X) + 0.7)  # inter stimulus interval 500ms
+            time.sleep(get_duration(filename=recording_X) + 0.7)  # inter stimulus interval 700ms
             # Play stimulus_B
             stimulus_B.play()
             time.sleep(get_duration(filename=recording_B) + 0.2)  # after 3rd stimulus wait 200ms
