@@ -3,6 +3,23 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+<<<<<<< HEAD
+=======
+        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\JND_pause_runa_2023-04-17_17h47_run_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\cvs Files\JND_pause_002_2023-04-18_22h29_run_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+>>>>>>> cbdad46c342fe57187f30ae8174e75696635e29a
         <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s\manipulation_FL_mimmi_ch.csv">
           <value>
             <Attribute>
