@@ -1,0 +1,60 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.511700680272109 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "Word" 
+        xmin = 0 
+        xmax = 1.511700680272109 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4296545574089605 
+            text = "name2_lilli_lisa_ch_pause_0_283" 
+        intervals [2]:
+            xmin = 0.4296545574089605 
+            xmax = 0.713144368858655 
+            text = "pause3_lilli_lisa_ch_pause_0_283" 
+        intervals [3]:
+            xmin = 0.713144368858655 
+            xmax = 0.9406810819565925 
+            text = "und2_lilli_lisa_ch_pause_0_283" 
+        intervals [4]:
+            xmin = 0.9406810819565925 
+            xmax = 1.511700680272109 
+            text = "name3_lilli_lisa_ch_pause_0_283" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "Syllable" 
+        xmin = 0 
+        xmax = 1.511700680272109 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.15378538598560199 
+            text = "n2sy1_lilli_lisa_ch_pause_0_283" 
+        intervals [2]:
+            xmin = 0.15378538598560199 
+            xmax = 0.4296545574089605 
+            text = "n2sy2_lilli_lisa_ch_pause_0_283" 
+        intervals [3]:
+            xmin = 0.4296545574089605 
+            xmax = 0.713144368858655 
+            text = "p3_lilli_lisa_ch_pause_0_283" 
+        intervals [4]:
+            xmin = 0.713144368858655 
+            xmax = 0.9406810819565925 
+            text = "c2_lilli_lisa_ch_pause_0_283" 
+        intervals [5]:
+            xmin = 0.9406810819565925 
+            xmax = 1.1375391074304122 
+            text = "n3sy1_lilli_lisa_ch_pause_0_283" 
+        intervals [6]:
+            xmin = 1.1375391074304122 
+            xmax = 1.511700680272109 
+            text = "n3sy2_lilli_lisa_ch_pause_0_283" 

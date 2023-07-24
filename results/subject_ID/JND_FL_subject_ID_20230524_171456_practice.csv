@@ -1,0 +1,5 @@
+experiment,subject_ID,date,task,session_type,run,trial,start_time,end_time,duration,recording_A,recording_X,recording_B,response,correct,difference,step-size,reversals,direction
+jnd_experiment,subject_ID,2023-05-24 17:14,FL,practice,0,0,17:14:56,17:15:02,00:00:06,audio/audio-FL/mimmi_ch_FL_0_1639.wav,audio/audio-FL/mimmi_ch_FL_0_0000.wav,audio/audio-FL/mimmi_ch_FL_0_0000.wav,left,True,0.1639,0.0075,0,down
+jnd_experiment,subject_ID,2023-05-24 17:14,FL,practice,0,1,17:14:56,17:15:09,00:00:12,audio/audio-FL/mimmi_ch_FL_0_1564.wav,audio/audio-FL/mimmi_ch_FL_0_0000.wav,audio/audio-FL/mimmi_ch_FL_0_0000.wav,left,True,0.1564,0.0075,0,down
+jnd_experiment,subject_ID,2023-05-24 17:14,FL,practice,0,2,17:14:56,17:15:15,00:00:18,audio/audio-FL/mimmi_ch_FL_0_1489.wav,audio/audio-FL/mimmi_ch_FL_0_1489.wav,audio/audio-FL/mimmi_ch_FL_0_0000.wav,right,True,0.1489,0.0075,0,down
+jnd_experiment,subject_ID,2023-05-24 17:14,FL,practice,0,3,17:14:56,17:15:20,00:00:23,audio/audio-FL/mimmi_ch_FL_0_0000.wav,audio/audio-FL/mimmi_ch_FL_0_1414.wav,audio/audio-FL/mimmi_ch_FL_0_1414.wav,left,True,0.1414,0.0075,0,down

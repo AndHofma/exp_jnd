@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CsvFileAttributes">
+    <option name="attributeMap">
+      <map>
+        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s\manipulation_FL_mimmi_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_005-semitones\manipulation_pitch_nelli_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_02-semitones\manipulation_pitch_nelli_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\audio\audio-FL\manipulation_FL_mimmi_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\audio\audio-pause\manipulation_pause_lilli_lisa_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\audio\audio-pitch\manipulation_pitch_nelli_ch.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

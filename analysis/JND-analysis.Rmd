@@ -1,0 +1,131 @@
+---
+title: "JND-analysis"
+author: "Andrea Hofmann"
+date: "2023-01-31"
+output: html_document
+---
+
+# Setup  
+
+```{r setup, include=FALSE}
+library(MASS)
+## be careful to load dplyr after MASS
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(extraDistr)
+library(ggplot2)
+library(loo)
+library(bridgesampling)
+library(brms)
+library(bayesplot)
+library(tictoc)
+library(hypr)
+library(lme4)
+library(rstan)
+library(cmdstanr)
+library(posterior)
+library(rootSolve)
+library(lmerTest)
+library(r2mlm)
+check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
+color_scheme_set("brightblue")
+## Save compiled models
+rstan_options(auto_write = FALSE)
+## Parallelize the chains using all the cores
+options(mc.cores = parallel::detectCores())
+options(mc.cores = 4)
+# To solve some conflicts between packages
+select <- dplyr::select
+extract <- rstan::extract
+# options(mc.cores=detectCores())
+## Set up cmdstanr for within-chain parallelization
+# set_cmdstan_path("/usr/lib/R/site-library/.cmdstan/cmdstan-2.28.2/")
+# tpc <- 2  # threads per core
+# rm(list=ls())
+```
+  
+# Data  
+
+```{r}
+
+```
+  
+# Priors  
+
+```{r priors, echo=TRUE, message=FALSE, warning=FALSE}
+# m0 ----
+priors.m0 <- c(set_prior("normal(6.5, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(0, 0.5)", class="sigma"))
+# m0_i ----
+priors.m0_i <- c(set_prior("normal(6.5, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(0, 0.25)", class="sigma"))
+# m1 ----
+priors.m1 <- c(set_prior("normal(6.0, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(0, 0.5)", class="sigma"),
+               set_prior("normal(250, 100)", class="ndt"))
+# m2 ----
+priors.m2 <- c(set_prior("normal(6.0, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(-2, 1)", dpar="sigma", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="b"),
+               set_prior("normal(250, 100)", class="ndt"))
+# m3 ----
+priors.m3 <- c(set_prior("normal(6.0, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(-2, 1)", dpar="sigma", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="b"),
+               set_prior("normal(0, 1)", dpar="sigma", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(250, 100)", class="ndt"))
+# m4 ----
+priors.m4 <- c(set_prior("normal(6.0, 0.5)", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(-2, 1)", dpar="sigma", class="b", coef="Intercept"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="b"),
+               set_prior("normal(0, 1)", dpar="sigma", class="sd", group="participant", coef="Intercept"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="sd", group="participant"),
+               set_prior("normal(250, 100)", class="ndt"))
+# m5 ----
+priors.m5 <- c(set_prior("normal(6.0, 0.5)", class="b", coef="Session1"),
+               set_prior("normal(6.0, 0.5)", class="b", coef="Session2"),
+               set_prior("normal(0, 0.25)", class="b"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Session1"),
+               set_prior("normal(0, 0.5)", class="sd", group="participant", coef="Session2"),
+               set_prior("normal(0, 0.25)", class="sd", group="participant"),
+               set_prior("lkj(1)", class="cor"),
+               set_prior("normal(-2, 1)", dpar="sigma", class="b", coef="Session1"),
+               set_prior("normal(-2, 1)", dpar="sigma", class="b", coef="Session2"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="b"),
+               set_prior("normal(0, 1)", dpar="sigma", class="sd", group="participant", coef="Session1"),
+               set_prior("normal(0, 1)", dpar="sigma", class="sd", group="participant", coef="Session2"),
+               set_prior("normal(0, 0.5)", dpar="sigma", class="sd", group="participant"),
+               set_prior("normal(250, 100)", class="ndt"))
+```
+  
+# Model  
+
+```{r}
+
+```
+

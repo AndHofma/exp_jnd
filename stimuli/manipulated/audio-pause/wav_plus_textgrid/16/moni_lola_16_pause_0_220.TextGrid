@@ -1,0 +1,60 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.5986875 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "Word" 
+        xmin = 0 
+        xmax = 1.5986875 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6022975694444442 
+            text = "name2_moni_lola_16_pause_0_220" 
+        intervals [2]:
+            xmin = 0.6022975694444442 
+            xmax = 0.8222892361111112 
+            text = "pause3_moni_lola_16_pause_0_220" 
+        intervals [3]:
+            xmin = 0.8222892361111112 
+            xmax = 1.079318518518519 
+            text = "und2_moni_lola_16_pause_0_220" 
+        intervals [4]:
+            xmin = 1.079318518518519 
+            xmax = 1.5986875 
+            text = "name3_moni_lola_16_pause_0_220" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "Syllable" 
+        xmin = 0 
+        xmax = 1.5986875 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.2900177259887011 
+            text = "n2sy1_moni_lola_16_pause_0_220" 
+        intervals [2]:
+            xmin = 0.2900177259887011 
+            xmax = 0.6022975694444442 
+            text = "n2sy2_moni_lola_16_pause_0_220" 
+        intervals [3]:
+            xmin = 0.6022975694444442 
+            xmax = 0.8222892361111112 
+            text = "p3_moni_lola_16_pause_0_220" 
+        intervals [4]:
+            xmin = 0.8222892361111112 
+            xmax = 1.079318518518519 
+            text = "c2_moni_lola_16_pause_0_220" 
+        intervals [5]:
+            xmin = 1.079318518518519 
+            xmax = 1.309213690476191 
+            text = "n3sy1_moni_lola_16_pause_0_220" 
+        intervals [6]:
+            xmin = 1.309213690476191 
+            xmax = 1.5986875 
+            text = "n3sy2_moni_lola_16_pause_0_220" 

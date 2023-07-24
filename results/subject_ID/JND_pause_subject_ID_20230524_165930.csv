@@ -1,0 +1,2 @@
+experiment,subject_ID,date,task,session_type,trial,start_time,end_time,duration,recording_A,recording_X,recording_B,response,correct,difference,step-size,reversals,direction
+jnd_experiment,subject_ID,2023-05-24 16:52,pause,trial,1,16:59:30,16:59:38,00:00:07,audio/audio-pause/lilli_lisa_ch_pause_0_000.wav,audio/audio-pause/lilli_lisa_ch_pause_0_000.wav,audio/audio-pause/lilli_lisa_ch_pause_0_550.wav,right,True,0.55,0.025,0,down

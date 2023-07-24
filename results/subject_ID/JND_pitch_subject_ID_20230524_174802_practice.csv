@@ -1,0 +1,5 @@
+experiment,subject_ID,date,task,session_type,run,trial,start_time,end_time,duration,recording_A,recording_X,recording_B,response,correct,difference,step-size,reversals,direction
+jnd_experiment,subject_ID,2023-05-24 17:46,pitch,practice,0,0,17:48:02,17:48:07,00:00:05,audio/audio-pitch/nelli_ch_rise_0_000.wav,audio/audio-pitch/nelli_ch_rise_13_112.wav,audio/audio-pitch/nelli_ch_rise_13_112.wav,left,True,13.112,0.5,0,down
+jnd_experiment,subject_ID,2023-05-24 17:46,pitch,practice,0,1,17:48:02,17:48:13,00:00:11,audio/audio-pitch/nelli_ch_rise_0_000.wav,audio/audio-pitch/nelli_ch_rise_12_612.wav,audio/audio-pitch/nelli_ch_rise_12_612.wav,left,True,12.612,0.5,0,down
+jnd_experiment,subject_ID,2023-05-24 17:46,pitch,practice,0,2,17:48:02,17:48:18,00:00:16,audio/audio-pitch/nelli_ch_rise_12_112.wav,audio/audio-pitch/nelli_ch_rise_12_112.wav,audio/audio-pitch/nelli_ch_rise_0_000.wav,right,True,12.112,0.5,0,down
+jnd_experiment,subject_ID,2023-05-24 17:46,pitch,practice,0,3,17:48:02,17:48:23,00:00:21,audio/audio-pitch/nelli_ch_rise_0_000.wav,audio/audio-pitch/nelli_ch_rise_0_000.wav,audio/audio-pitch/nelli_ch_rise_11_612.wav,right,True,11.612,0.5,0,down

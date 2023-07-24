@@ -1,0 +1,216 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.8146395653312384 
+tiers? <exists> 
+size = 6 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "word" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        intervals: size = 8 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.30000000000000004 
+            text = "" 
+        intervals [2]:
+            xmin = 0.30000000000000004 
+            xmax = 0.6840209407216494 
+            text = "name1" 
+        intervals [3]:
+            xmin = 0.6840209407216494 
+            xmax = 0.9138693585643212 
+            text = "und1" 
+        intervals [4]:
+            xmin = 0.9138693585643212 
+            xmax = 1.3703857276119402 
+            text = "name2" 
+        intervals [5]:
+            xmin = 1.3703857276119402 
+            xmax = 1.9556044776119403 
+            text = "pause3" 
+        intervals [6]:
+            xmin = 1.9556044776119403 
+            xmax = 2.131824459876543 
+            text = "und2" 
+        intervals [7]:
+            xmin = 2.131824459876543 
+            xmax = 2.5146395653312386 
+            text = "name3" 
+        intervals [8]:
+            xmin = 2.5146395653312386 
+            xmax = 2.8146395653312384 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "syll" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        intervals: size = 11 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.30000000000000004 
+            text = "" 
+        intervals [2]:
+            xmin = 0.30000000000000004 
+            xmax = 0.488361756728406 
+            text = "" 
+        intervals [3]:
+            xmin = 0.488361756728406 
+            xmax = 0.6840209407216494 
+            text = "" 
+        intervals [4]:
+            xmin = 0.6840209407216494 
+            xmax = 0.9138693585643212 
+            text = "" 
+        intervals [5]:
+            xmin = 0.9138693585643212 
+            xmax = 1.0642514592392367 
+            text = "" 
+        intervals [6]:
+            xmin = 1.0642514592392367 
+            xmax = 1.3703857276119402 
+            text = "" 
+        intervals [7]:
+            xmin = 1.3703857276119402 
+            xmax = 1.9556044776119403 
+            text = "" 
+        intervals [8]:
+            xmin = 1.9556044776119403 
+            xmax = 2.131824459876543 
+            text = "" 
+        intervals [9]:
+            xmin = 2.131824459876543 
+            xmax = 2.3176700640316934 
+            text = "" 
+        intervals [10]:
+            xmin = 2.3176700640316934 
+            xmax = 2.5146395653312386 
+            text = "" 
+        intervals [11]:
+            xmin = 2.5146395653312386 
+            xmax = 2.8146395653312384 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "seg" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        intervals: size = 17 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.30000000000000004 
+            text = "" 
+        intervals [2]:
+            xmin = 0.30000000000000004 
+            xmax = 0.3713828410657556 
+            text = "s1" 
+        intervals [3]:
+            xmin = 0.3713828410657556 
+            xmax = 0.488361756728406 
+            text = "s2" 
+        intervals [4]:
+            xmin = 0.488361756728406 
+            xmax = 0.5576318695872489 
+            text = "s3" 
+        intervals [5]:
+            xmin = 0.5576318695872489 
+            xmax = 0.6840209407216494 
+            text = "s4" 
+        intervals [6]:
+            xmin = 0.6840209407216494 
+            xmax = 0.9138693585643212 
+            text = "c1" 
+        intervals [7]:
+            xmin = 0.9138693585643212 
+            xmax = 0.9931402849036068 
+            text = "s5" 
+        intervals [8]:
+            xmin = 0.9931402849036068 
+            xmax = 1.0642514592392367 
+            text = "s6" 
+        intervals [9]:
+            xmin = 1.0642514592392367 
+            xmax = 1.1483833754614026 
+            text = "s7" 
+        intervals [10]:
+            xmin = 1.1483833754614026 
+            xmax = 1.3703857276119402 
+            text = "s8" 
+        intervals [11]:
+            xmin = 1.3703857276119402 
+            xmax = 1.9556044776119403 
+            text = "p3" 
+        intervals [12]:
+            xmin = 1.9556044776119403 
+            xmax = 2.131824459876543 
+            text = "c2" 
+        intervals [13]:
+            xmin = 2.131824459876543 
+            xmax = 2.195023366500829 
+            text = "s9" 
+        intervals [14]:
+            xmin = 2.195023366500829 
+            xmax = 2.3176700640316934 
+            text = "s10" 
+        intervals [15]:
+            xmin = 2.3176700640316934 
+            xmax = 2.3695083754614026 
+            text = "s11" 
+        intervals [16]:
+            xmin = 2.3695083754614026 
+            xmax = 2.5146395653312386 
+            text = "s12" 
+        intervals [17]:
+            xmin = 2.5146395653312386 
+            xmax = 2.8146395653312384 
+            text = "" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "glott" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6734269661964152 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6734269661964152 
+            xmax = 0.7502927216595592 
+            text = "glott" 
+        intervals [3]:
+            xmin = 0.7502927216595592 
+            xmax = 2.8146395653312384 
+            text = "" 
+    item [5]:
+        class = "TextTier" 
+        name = "f0" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        points: size = 4 
+        points [1]:
+            number = 0.34381189109775256 
+            mark = "L1" 
+        points [2]:
+            number = 0.6184189485704557 
+            mark = "H1" 
+        points [3]:
+            number = 0.9449600138537135 
+            mark = "L2" 
+        points [4]:
+            number = 1.2823065944935443 
+            mark = "H2" 
+    item [6]:
+        class = "IntervalTier" 
+        name = "comments" 
+        xmin = 0 
+        xmax = 2.8146395653312384 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 2.8146395653312384 
+            text = "" 

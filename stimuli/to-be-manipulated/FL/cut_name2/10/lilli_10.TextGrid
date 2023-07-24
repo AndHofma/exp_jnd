@@ -1,0 +1,86 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 0.418017528735632 
+tiers? <exists> 
+size = 6 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "word" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.418017528735632 
+            text = "name2" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "syll" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        intervals: size = 2 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.10848245929118772 
+            text = "" 
+        intervals [2]:
+            xmin = 0.10848245929118772 
+            xmax = 0.418017528735632 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "seg" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.02805805903866254 
+            text = "s5" 
+        intervals [2]:
+            xmin = 0.02805805903866254 
+            xmax = 0.10848245929118772 
+            text = "s6" 
+        intervals [3]:
+            xmin = 0.10848245929118772 
+            xmax = 0.1737894616060025 
+            text = "s7" 
+        intervals [4]:
+            xmin = 0.1737894616060025 
+            xmax = 0.418017528735632 
+            text = "s8" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "glott" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.418017528735632 
+            text = "" 
+    item [5]:
+        class = "TextTier" 
+        name = "f0" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        points: size = 2 
+        points [1]:
+            number = 0.016388194018061686 
+            mark = "L2" 
+        points [2]:
+            number = 0.3323917552006339 
+            mark = "H2" 
+    item [6]:
+        class = "IntervalTier" 
+        name = "comments" 
+        xmin = 0 
+        xmax = 0.418017528735632 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.418017528735632 
+            text = "" 

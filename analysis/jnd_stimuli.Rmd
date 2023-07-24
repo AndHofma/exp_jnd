@@ -1,0 +1,330 @@
+---
+title: "jnd_stimuli"
+author: "Andrea Hofmann"
+date: "2022-11-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(flextable)
+set_flextable_defaults(font.size = 11, padding = 3)
+```
+
+# import  
+
+```{r import}
+# import data set, separated by tab
+exp1_C01 <- read.csv("values_exp1_C01.csv",header=TRUE,stringsAsFactors=FALSE,sep="\t")
+exp8_ch <- read.csv("values_exp8_ch.csv",header=TRUE,stringsAsFactors=FALSE,sep="\t")
+```
+  
+# wrangle  
+
+```{r data wrangling}
+# replace ? with NA
+## exp1_C01
+exp1_C01[exp1_C01 == "?"] <- NA
+## exp8_ch
+exp8_ch[exp8_ch == "?"] <- NA
+# new col "gender"
+exp1_C01$gender <- with(exp1_C01,ifelse(participantID==9,"male","female"))
+# new col with name1 and name2
+## exp1_C01
+value1 <- "mimmi"
+value2 <- "lilli"
+value3 <- "nelli"
+value4 <- "manni"
+value5 <- "leni"
+exp1_C01$name1 <-
+  ifelse(grepl(value1,exp1_C01$filename),value5, 
+         ifelse(grepl(value2,exp1_C01$filename),"moni",
+                ifelse(grepl(value3,exp1_C01$filename),value1,
+                       ifelse(grepl(value4,exp1_C01$filename),value2,
+                              ifelse(grepl(value5,exp1_C01$filename),value4,value3)
+                       )
+                )
+         )
+  )
+exp1_C01$name2 <-
+  ifelse(grepl(value1,exp1_C01$filename),value1, 
+         ifelse(grepl(value2,exp1_C01$filename),value2,
+                ifelse(grepl(value3,exp1_C01$filename),value3,
+                       ifelse(grepl(value4,exp1_C01$filename),value4,
+                              ifelse(grepl(value5,exp1_C01$filename),value5,"moni")
+                       )
+                )
+         )
+  )
+## exp8_ch
+value6 <- "gabi"
+value7 <- "lotti"
+exp8_ch$name1 <-
+  ifelse(grepl(value1,exp8_ch$filename),value1, 
+         ifelse(grepl(value2,exp8_ch$filename),value2,
+                ifelse(grepl(value3,exp8_ch$filename),value3,
+                       ifelse(grepl(value4,exp8_ch$filename),value4,
+                              ifelse(grepl(value5,exp8_ch$filename),value5,
+                                     ifelse(grepl(value6,exp8_ch$filename),value6,
+                                            ifelse(grepl(value7,exp8_ch$filename),value7, "moni")
+                                     )
+                              )
+                       )
+                )
+         )
+  )
+exp8_ch$name2 <-
+  ifelse(grepl(value1,exp8_ch$filename),value3, 
+         ifelse(grepl(value2,exp8_ch$filename),value6,
+                ifelse(grepl(value3,exp8_ch$filename),"moni",
+                       ifelse(grepl(value4,exp8_ch$filename),value5,
+                              ifelse(grepl(value5,exp8_ch$filename),value1,
+                                     ifelse(grepl(value6,exp8_ch$filename),value5,
+                                            ifelse(grepl(value7,exp8_ch$filename),value3,"lilli")
+                                     )
+                              )
+                       )
+                )
+         )
+  )
+# update col condition - read out data from praat is not correct
+## exp8_ch
+exp8_ch$condition <-
+  ifelse(grepl("bra",exp8_ch$filename), "bra","nob")
+# new col
+## sy11_dur (1st syllable name1), sy12_dur (2nd syllable name1)
+## sy21_dur (1st syllable name2), sy22_dur (2nd syllable name2)
+### exp1_C01
+exp1_C01$sy11_dur <- exp1_C01$s1dur+exp1_C01$s2dur
+exp1_C01$sy12_dur <- exp1_C01$s3dur+exp1_C01$s4dur
+exp1_C01$sy21_dur <- exp1_C01$s5dur+exp1_C01$s6dur
+exp1_C01$sy22_dur <- exp1_C01$s7dur+exp1_C01$s8dur
+### exp8_ch
+exp8_ch$sy11_dur <- exp8_ch$s1dur+exp8_ch$s2dur
+exp8_ch$sy12_dur <- exp8_ch$s3dur+exp8_ch$s4dur
+exp8_ch$sy21_dur <- exp8_ch$s5dur+exp8_ch$s6dur
+exp8_ch$sy22_dur <- exp8_ch$s7dur+exp8_ch$s8dur
+# new col
+## name1_dur, name2_dur
+### exp1_C01
+exp1_C01$name1_dur <- exp1_C01$sy11_dur+exp1_C01$sy12_dur
+exp1_C01$name2_dur <- exp1_C01$sy21_dur+exp1_C01$sy22_dur
+### exp8_ch
+exp8_ch$name1_dur <- exp8_ch$sy11_dur+exp8_ch$sy12_dur
+exp8_ch$name2_dur <- exp8_ch$sy21_dur+exp8_ch$sy22_dur
+
+# Rows with minimum and maximum values of a variable
+exp1_C01 %>% slice_max(p3relutt, n = 40)
+```
+
+# descriptives
+
+```{r descriptives}
+# exp1_C01 ####
+## range2 ####
+theme_apa(
+  flextable(range2.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name2) |>
+              summarise(mean_range2=mean(rise2),
+                        sd_range2=sd(rise2),
+                        min_range2=min(rise2),
+                        max_range2=max(rise2)
+              )
+  )
+)
+### min range on name2
+# | 10_C01_b1_t09_manni_nob - rise2=0.63st
+theme_apa(
+  flextable(exp1_C01[which.min(exp1_C01$rise2),]
+  )
+)
+### max range on name2
+# | 03_C01_b1_t06_manni_bra -rise2=16.69st
+theme_apa(
+  flextable(exp1_C01[which.max(exp1_C01$rise2),]
+  )
+)
+
+## final lengthening ####
+theme_apa(
+  flextable(fl2.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name2) |>
+              summarise(mean_fl2=mean(s8reln2),
+                        sd_fl2=sd(s8reln2),
+                        min_fl2=min(s8reln2),
+                        max_fl2=max(s8reln2)
+              )
+  )
+)
+### min fl on name2
+# | 15_C01_b1_t05_moni_nob - s8reln2=23.02%
+theme_apa(
+  flextable(exp1_C01[which.min(exp1_C01$s8reln2),]
+  )
+)
+### max fl on name2
+# | 10_C01_b1_t05_lilli_bra - s8reln2=58.42%
+theme_apa(
+  flextable(exp1_C01[which.max(exp1_C01$s8reln2),]
+  )
+)
+
+min_rows <- filter(exp1_C01, s8reln2 < 30)
+min_rows <- min_rows %>%
+  select(filename, s8reln2)
+
+max_rows <- filter(exp1_C01, s8reln2 > 50)
+max_rows <- max_rows %>%
+  select(filename, s8reln2)
+
+## pause ####
+theme_apa(
+  flextable(pause.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name2) |>
+              summarise(mean_range2=mean(p3relutt),
+                        sd_range2=sd(p3relutt),
+                        min_range2=min(p3relutt),
+                        max_range2=max(p3relutt)
+              )
+  )
+)
+### min pause after name2
+# | 01_C01_b1_t01_mimmi_nob - p3relutt=0.00 %
+theme_apa(
+  flextable(exp1_C01[which.min(exp1_C01$p3relutt),]
+  )
+)
+### max pause after name2
+# | 16_C01_b1_t01_moni_bra - p3relutt=27.64 %
+theme_apa(
+  flextable(exp1_C01[which.max(exp1_C01$p3relutt),]
+  )
+)
+
+## syllable duration name1 ####
+theme_apa(
+  flextable(dur1.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name1) |>
+              summarise(
+                mean_sy11=mean(sy11_dur),
+                sd_sy11=sd(sy11_dur),
+                min_sy11=min(sy11_dur),
+                max_sy11=max(sy11_dur),
+                mean_sy12=mean(sy12_dur),
+                sd_sy12=sd(sy12_dur),
+                min_sy12=min(sy12_dur),
+                max_sy12=max(sy12_dur)
+              )
+  )
+)
+
+## syllable duration name2 ####
+theme_apa(
+  flextable(dur2.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name2) |>
+              summarise(
+                mean_sy21=mean(sy21_dur),
+                sd_sy21=sd(sy21_dur),
+                min_sy21=min(sy21_dur),
+                max_sy21=max(sy21_dur),
+                mean_sy22=mean(sy22_dur),
+                sd_sy22=sd(sy22_dur),
+                min_sy22=min(sy22_dur),
+                max_sy22=max(sy22_dur)
+              )
+  )
+)
+
+## duration constituent 1 (name1 + und1 + name2) = cons1dur ####
+theme_apa(
+  flextable(cons1dur.exp1_desc <- 
+              subset(exp1_C01, exp1_C01$gender=="female") |>
+              group_by(condition, gender, name1) |>
+              summarise(
+                mean_cons1dur=mean(cons1dur),
+                sd_cons1dur=sd(cons1dur),
+                min_cons1dur=min(cons1dur),
+                max_cons1dur=max(cons1dur)              )
+  )
+)
+
+# exp8_ch ####
+## range2
+theme_apa(
+  flextable(range2.exp8_desc <- 
+              exp8_ch |>
+              group_by(condition, name2) |>
+              summarise(mean_range2=mean(rise2),
+                        sd_range2=sd(rise2),
+                        min_range2=min(rise2),
+                        max_range2=max(rise2)
+              )
+  )
+)
+### min range on name2
+# | model_ch_rprod_l1_t02_r1_mimmi_nob_noma - rise2=2.58st
+theme_apa(
+  flextable(exp8_ch[which.min(exp8_ch$rise2),]
+  )
+)
+### max range on name2
+# | model_ch_rprod_l1_t14_r1_mimmi_bra_noma - rise2=13.10st
+theme_apa(
+  flextable(exp8_ch[which.max(exp8_ch$rise2),]
+  )
+)
+## final lengthening ====
+theme_apa(
+  flextable(fl2.exp8_desc <- 
+              exp8_ch |>
+              group_by(condition, name2) |>
+              summarise(mean_fl2=mean(s8reln2),
+                        sd_fl2=sd(s8reln2),
+                        min_fl2=min(s8reln2),
+                        max_fl2=max(s8reln2)
+              )
+  )
+)
+### min fl on name2
+# | model_ch_rprod_l1_t03_r2_gabi__nob_noma - s8reln2=27.18%
+theme_apa(
+  flextable(exp8_ch[which.min(exp8_ch$s8reln2),]
+  )
+)
+### max fl on name2
+# | model_ch_rprod_l1_t09_r1_leni__bra_noma - s8reln2=45.99%
+theme_apa(
+  flextable(exp8_ch[which.max(exp8_ch$s8reln2),]
+  )
+)
+## syllable duration name2 ====
+theme_apa(
+  flextable(dur2.exp8_desc <- 
+              exp8_ch |>
+              group_by(condition, name2) |>
+              summarise(
+                mean_sy21=mean(sy21_dur),
+                sd_sy21=sd(sy21_dur),
+                min_sy21=min(sy21_dur),
+                max_sy21=max(sy21_dur),
+                mean_sy22=mean(sy22_dur),
+                sd_sy22=sd(sy22_dur),
+                min_sy22=min(sy22_dur),
+                max_sy22=max(sy22_dur)
+              )
+  )
+)
+### max dur name2 syll2
+# | model_ch_rprod_l1_t09_r1_leni__bra_noma - sy22_dur=326.02ms
+theme_apa(
+  flextable(exp8_ch[which.max(exp8_ch$sy22_dur),]
+  )
+)
+```
+
