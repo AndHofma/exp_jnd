@@ -49,44 +49,43 @@ randomized_tasks = random.sample(general_experiment_configs["task_types"],
                                  k=len(general_experiment_configs["task_types"]))
 
 
-# def create_window():
-#     """
-#    Create and initialize the experiment window.
-#
-#    Returns:
-#    win: A PsychoPy visual.Window object for the experiment.
-#   """
-#    # Create a monitor object for the second screen
-#    second_monitor = monitors.Monitor(name='EA273WMi')
-#    # Set the appropriate settings for the second monitor
-#    second_monitor.setSizePix((1920, 1080))  # Set the desired resolution of the second screen
-#
-#    # Create and return a window for the experiment on the second monitor
-#    return visual.Window(monitor=second_monitor,  # Use the second monitor
-#                         size=(1920, 1080),
-#                         screen=1,  # Specify the index of the second screen (0 for the first screen, 1 for the second, etc.)
-#                         allowGUI=True,
-#                         fullscr=True,
-#                         color=(255, 255, 255)
-#                         )
-
-
-# to use for testing on laptop
 def create_window():
-   """
-   Create and initialize the experiment window.
-   Returns:
-   win : A PsychoPy visual.Window object for the experiment.
-   """
-   # Create a monitor object
-   currentMonitor = monitors.Monitor(name='testMonitor')
-   # Create and return a window for the experiment
-   return visual.Window(monitors.Monitor.getSizePix(currentMonitor),
-                        monitor="testMonitor",
+    """
+    Create and initialize the experiment window.
+    Returns:
+    win: A PsychoPy visual.Window object for the experiment.
+    """
+    # Create a monitor object for the second screen
+    second_monitor = monitors.Monitor(name='EA244WMi')
+    # Set the appropriate settings for the second monitor
+    second_monitor.setSizePix((1920, 1080))  # Set the desired resolution of the second screen
+
+    # Create and return a window for the experiment on the second monitor
+    return visual.Window(monitor=second_monitor,  # Use the second monitor
+                        size=(1920, 1080),
+                        screen=2,  # Specify the index of the second screen (0 for the first screen, 1 for the second, etc.)
                         allowGUI=True,
                         fullscr=True,
                         color=(255, 255, 255)
                         )
+
+
+# to use for testing on laptop
+#def create_window():
+#   """
+#   Create and initialize the experiment window.
+#   Returns:
+#   win : A PsychoPy visual.Window object for the experiment.
+#   """
+#   # Create a monitor object
+#   currentMonitor = monitors.Monitor(name='testMonitor')
+#   # Create and return a window for the experiment
+#   return visual.Window(monitors.Monitor.getSizePix(currentMonitor),
+#                        monitor="testMonitor",
+#                        allowGUI=True,
+#                        fullscr=True,
+#                        color=(255, 255, 255)
+#                        )
 
 
 def get_task_specific_config(task):
@@ -108,8 +107,8 @@ def get_task_specific_config(task):
     if task == "pitch":
         config['task'] = "pitch"
         config['stim_prefix'] = f'nelli_ch_rise'
-        config['baseline'] = 0.000
-        config['initial_difference'] = 13.112
+        config['baseline'] = 0.002
+        config['initial_difference'] = 13.110
     elif task == "pause":
         config['task'] = "pause"
         config['stim_prefix'] = f'lilli_lisa_ch_{task}'
@@ -119,7 +118,7 @@ def get_task_specific_config(task):
         config['task'] = "FL"
         config['stim_prefix'] = f'mimmi_ch_{task}'
         config['baseline'] = 0.0000
-        config['initial_difference'] = 0.1639
+        config['initial_difference'] = 0.1638
     else:
         raise Exception(f"No configs for task {task} specified")
 
@@ -163,11 +162,11 @@ def get_step_size(task, test_difference=13.0000):
         else:
             return 0.025
     elif task == "FL":
-        if test_difference <= 0.0169:
+        if test_difference <= 0.0168:
             return 0.0003
-        elif test_difference <= 0.0457:
+        elif test_difference <= 0.0456:
             return 0.0018
-        elif test_difference <= 0.0889:
+        elif test_difference <= 0.0888:
             return 0.0036
         else:
             return 0.0075

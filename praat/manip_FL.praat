@@ -16,9 +16,9 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s_test\"
+d$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\FL\cut_name2\"
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s_test\"
+dir$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\0_0003-s\"
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav
@@ -96,9 +96,9 @@ for i from 1 to n
     s8MinFL = ('s8MinDur' * 100) / 'n2Min'
 	# amount of 1ms steps to get from origFL to minFL
     # round to integer - get rid of decimal places
-    stepsFL = round((s8-s8MinDur) / 0.0003)
-    # stepsFL = 546
-    starts8Manip = 'starts8' + (s8-s8MinDur)
+    # stepsFL = round((s8-s8MinDur) / 0.0003) == 547
+    stepsFL = 546
+    starts8Manip = 'starts8' + s8MinDur
     s8Manip = 'ends8' - 'starts8Manip'
 
     ################
@@ -143,10 +143,11 @@ for i from 1 to n
         # difference in s8 duration for each step
         diffs8 = 's8' - 's8New'
 
-        # difference in syllable lengths (1st and 2nd)
         # this value will be relevant to find correct stimulus later in JND script
+        diffs8_curr$ = replace$(fixed$ (diffs8, 4), ".", "_", 0)
+
+        # difference in syllable lengths (1st and 2nd)
         diffSyllDur = (s8New + s7) - (s5 + s6)
-        currDiff$ = replace$(fixed$ (diffSyllDur, 4), ".", "_", 0)
 
         # new relative FL for each step
         flNew = (s8New * 100) / 'n2New'
@@ -154,7 +155,7 @@ for i from 1 to n
         # difference in relative FL for each step
         diffFL = 's8FLOrig' - 'flNew'
 
-        name_new$ = name$ + "_FL_" + currDiff$
+        name_new$ = name$ + "_FL_" + diffs8_curr$
         Rename: "'name_new$'"
         Save as WAV file... 'dir$''name_new$'.wav
 
@@ -247,8 +248,8 @@ for i from 1 to n
         Insert boundary: 2, 'tsyll'
 
         Set interval text: 1, 1, "name2_'partName$'"
-        Set interval text: 2, 1, "n2sy1_'partName$'"
-        Set interval text: 2, 2, "n2sy2_'partName$'"
+        Set interval text: 2, 1, "n2s1_'partName$'"
+        Set interval text: 2, 2, "n2s2_'partName$'"
 
         select TextGrid 'name$'
         # Save TextGrid as text file... 'dir$''name$'.TextGrid

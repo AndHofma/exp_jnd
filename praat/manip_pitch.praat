@@ -16,9 +16,9 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pitch\cut_name2\ch\"
+d$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pitch\cut_name2\"
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\wav_plus_textgrid\ch\0_005-semitones\"
+dir$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\0_005st\"
 
 # opens the wav-files from a file
 Create Strings as file list... list 'd$'*.wav
@@ -89,19 +89,20 @@ for i from 1 to n
     origRise = 12*log2(h2/l2)
 
     # amount of 0.005 semitone steps to get from origRise to flat: rise = btw (-1) and (+1)
-    stepsFlatten = round((origRise) / 0.005)
+    # stepsFlatten = round((origRise) / 0.005) == 2622
+    stepsFlatten = 2622
 
     ################
     ## Data Table ##
     ################
-    Create Table with column names: "table", stepsFlatten+1, "stepID filename nameNew riseOrig l2Orig h2Orig riseNew h2New diffRise"
+    Create Table with column names: "table", stepsFlatten, "stepID filename nameNew riseOrig l2Orig h2Orig riseNew h2New diffRise"
 
     ##################
     ## Manipulation ##
     ##################
 
     ## f0 rise flatten continuum ##
-    for x from 1 to stepsFlatten+1
+    for x from 1 to stepsFlatten
         select Sound 'name$'
         To Manipulation: 0.001, 75, 600
         Edit

@@ -68,7 +68,7 @@ def get_instruction_text(task, ind):
         return f"Sehr gut!\n" \
                f"Wenn Sie noch Fragen haben, geben Sie der Versuchsleiterin Bescheid.\n\n" \
                f"Es startet der {ind + 1}. von 3 Teilen.\n" \
-               f"Dieser Teil dauert zwischen 18-22 Minuten. \n" \
+               f"Dieser Teil dauert ca. 18 Minuten. \n" \
                f"{last_task_text}" \
                f"Beachten Sie: \n" \
                f"Die Aufgabe wird nach und nach immer schwieriger,\n " \
@@ -79,7 +79,7 @@ def get_instruction_text(task, ind):
         return f"Sehr gut!\n" \
                f"Wenn Sie noch Fragen haben, geben Sie der Versuchsleiterin Bescheid.\n\n" \
                f"Es startet der {ind + 1}. von 3 Teilen.\n" \
-               f"Dieser Teil dauert zwischen 10-15 Minuten. \n" \
+               f"Dieser Teil dauert ca. 8 Minuten. \n" \
                f"{last_task_text}" \
                f"Beachten Sie: \n" \
                f"Die Aufgabe wird nach und nach immer schwieriger,\n " \

@@ -549,4 +549,4 @@ stepID	filename	nameNew	p3Orig	p3Min	shortFC	p3New	uttDurOrig	uttDurMin	uttDurNe
 548	lilli_lisa_ch	lilli_lisa_ch_pause_0_002	0.55	0	0.004	0.002	1.778	1.228	1.231
 549	lilli_lisa_ch	lilli_lisa_ch_pause_0_001	0.55	0	0.002	0.001	1.778	1.228	1.23
 550	lilli_lisa_ch	lilli_lisa_ch_pause_0_000	0.55	0	0	0	1.778	1.228	1.229
-0	lilli_lisa_ch	lilli_lisa_ch_pause_0_550	0.55	0	1	0.55	1.778	1.228	1.778
+0	lilli_lisa_ch	lilli_lisa_ch_pause_0_550	0.55	0	1	0.550	1.778	1.228	1.778

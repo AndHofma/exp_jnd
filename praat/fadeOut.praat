@@ -1,7 +1,7 @@
 # specify the directory from which you want to access the wav and textgrid files
-input_directory$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s\"
+input_directory$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\0_005st\"
 # directory for saving the processed files
-output_directory$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-FL\wav_plus_textgrid\ch\0_0003-s\"
+output_directory$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pitch\0_005-st_fadeOut_TESTSTIMULI\"
 
 # Create a Strings object containing the list of WAV files
 Create Strings as file list: "wav_list", input_directory$ + "*.wav"

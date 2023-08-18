@@ -16,10 +16,10 @@
 
 ## directories ##
 # specify the directory from which you want to access the wav and textgrid files
-d$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pause\cut_name2_name3\ch\"
+d$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\to-be-manipulated\pause\cut_name2_name3\"
 
 # directory for saving the manipulated files
-dir$ = "C:\Users\Andrea Hofmann\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pause\wav_plus_textgrid\ch\0_001-ms-test\"
+dir$ = "C:\Users\NOLA\OneDrive\PhD\exp_jnd\stimuli\manipulated\audio-pause\wav_plus_textgrid\0_001-ms\"
 
 # opens the wav-files from a file
 Create Strings as file list... list1 'd$'*.wav
@@ -223,15 +223,15 @@ for i from 1 to n
         Insert boundary: 2, 'n3Start'
         Insert boundary: 2, 'syll1n3End'
         Set interval text: 1, 1, "name2_'partName$'"
-        Set interval text: 1, 2, "pause3_'partName$'"
-        Set interval text: 1, 3, "und2_'partName$'"
+        Set interval text: 1, 2, "p3_'partName$'"
+        Set interval text: 1, 3, "c2_'partName$'"
         Set interval text: 1, 4, "name3_'partName$'"
-        Set interval text: 2, 1, "n2sy1_'partName$'"
-        Set interval text: 2, 2, "n2sy2_'partName$'"
+        Set interval text: 2, 1, "n2s1_'partName$'"
+        Set interval text: 2, 2, "n2s2_'partName$'"
         Set interval text: 2, 3, "p3_'partName$'"
         Set interval text: 2, 4, "c2_'partName$'"
-        Set interval text: 2, 5, "n3sy1_'partName$'"
-        Set interval text: 2, 6, "n3sy2_'partName$'"
+        Set interval text: 2, 5, "n3s1_'partName$'"
+        Set interval text: 2, 6, "n3s2_'partName$'"
 
         select TextGrid 'name1$'
         Save as text file... 'dir$''name1$'.TextGrid

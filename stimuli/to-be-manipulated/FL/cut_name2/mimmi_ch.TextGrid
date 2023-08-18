@@ -2,7 +2,7 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 0.48817000230043717 
+xmax = 0.48829168106083 
 tiers? <exists> 
 size = 6 
 item []: 
@@ -10,17 +10,17 @@ item []:
         class = "IntervalTier" 
         name = "word" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         intervals: size = 1 
         intervals [1]:
             xmin = 0 
-            xmax = 0.48817000230043717 
+            xmax = 0.48829168106083 
             text = "name2" 
     item [2]:
         class = "IntervalTier" 
         name = "syll" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         intervals: size = 2 
         intervals [1]:
             xmin = 0 
@@ -28,13 +28,13 @@ item []:
             text = "" 
         intervals [2]:
             xmin = 0.16214604160504775 
-            xmax = 0.48817000230043717 
+            xmax = 0.48829168106083 
             text = "" 
     item [3]:
         class = "IntervalTier" 
         name = "seg" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         intervals: size = 4 
         intervals [1]:
             xmin = 0 
@@ -46,27 +46,27 @@ item []:
             text = "s6" 
         intervals [3]:
             xmin = 0.16214604160504775 
-            xmax = 0.26363568162772366 
+            xmax = 0.2632916810608301 
             text = "s7" 
         intervals [4]:
-            xmin = 0.26363568162772366 
-            xmax = 0.48817000230043717 
+            xmin = 0.2632916810608301 
+            xmax = 0.48829168106083 
             text = "s8" 
     item [4]:
         class = "IntervalTier" 
         name = "glott" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         intervals: size = 1 
         intervals [1]:
             xmin = 0 
-            xmax = 0.48817000230043717 
+            xmax = 0.48829168106083 
             text = "" 
     item [5]:
         class = "TextTier" 
         name = "f0" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         points: size = 2 
         points [1]:
             number = 0.04445167187280741 
@@ -78,9 +78,9 @@ item []:
         class = "IntervalTier" 
         name = "comments" 
         xmin = 0 
-        xmax = 0.48817000230043717 
+        xmax = 0.48829168106083 
         intervals: size = 1 
         intervals [1]:
             xmin = 0 
-            xmax = 0.48817000230043717 
+            xmax = 0.48829168106083 
             text = "" 
