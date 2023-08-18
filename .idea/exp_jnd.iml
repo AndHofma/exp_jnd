@@ -15,6 +15,9 @@
       <excludeFolder url="file://$MODULE_DIR$/stimuli/to-be-manipulated/pitch/original" />
       <excludeFolder url="file://$MODULE_DIR$/stimuli/to-be-manipulated/pitch/upsampled_48kHz" />
       <excludeFolder url="file://$MODULE_DIR$/stimuli/to-be-manipulated/phase1_exp8_ch" />
+      <excludeFolder url="file://$MODULE_DIR$/stimuli/manipulated/audio-FL" />
+      <excludeFolder url="file://$MODULE_DIR$/stimuli/manipulated/audio-pause" />
+      <excludeFolder url="file://$MODULE_DIR$/stimuli/manipulated/audio-pitch" />
     </content>
     <orderEntry type="jdk" jdkName="exp_jnd" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
