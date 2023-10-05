@@ -137,14 +137,14 @@ def run_jnd_task(exp_data, task, win, session_type='trial'):
     # AAB pattern pic
     global AAB
     AAB = visual.ImageStim(win,
-                           image='pic/pic_right_correct_BBA.png',
+                           image=general_experiment_configs["pics_path"] + 'pic_right_correct_BBA.png',
                            pos=(0.5, -0.7),
                            name='AAB_pic')
 
     # ABB pattern pic
     global ABB
     ABB = visual.ImageStim(win,
-                           image='pic/pic_left_correct_ABB.png',
+                           image=general_experiment_configs["pics_path"] + 'pic_left_correct_ABB.png',
                            pos=(-0.5, -0.7),
                            name='ABB_pic')
 
@@ -170,7 +170,7 @@ def run_jnd_task(exp_data, task, win, session_type='trial'):
     global audio_center
     # Center position
     audio_center = visual.ImageStim(win,
-                                  image='pic/audio.png',
+                                  image=general_experiment_configs["pics_path"] + 'audio.png',
                                   pos=(0, 0),
                                   name='audio_center')
 
@@ -238,7 +238,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
         # Write to file here
         experiment_output.write(
             'experiment,'
-            'subject_ID,'
+            'subjectID,'
             'date,'
             'task,'
             'session_type,'
@@ -436,7 +436,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
 
         Args:
             path_prefix (str): The path prefix for the stimulus files.
-            exp_data (dict): A dictionary containing experiment data (e.g., subject_ID, date, experiment).
+            exp_data (dict): A dictionary containing experiment data (e.g., subjectID, date, experiment).
             exp_config (dict): A dictionary containing experiment configuration (e.g., baseline, task).
             win (visual.Window): A PsychoPy window object for rendering stimuli.
     """
@@ -491,7 +491,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
         # Write to file here
         experiment_output.write(
             'experiment,'
-            'subject_ID,'
+            'subjectID,'
             'date,'
             'task,'
             'session_type,'

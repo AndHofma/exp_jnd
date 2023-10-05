@@ -34,14 +34,31 @@ This supports a between-subjects experimental design.
 from instructions import pitch_FL_text, pause_text
 import random
 from psychopy import monitors, visual
+import os
+import sys
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+# Update paths to be compatible with PyInstaller
+base_stimuli_path = resource_path('audio/')
+output_path = resource_path('results/')
+plot_path = resource_path('plots/')
+# directory for the pictograms used
+pics_path = resource_path('pics/')
 
 
 # General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
                               "num_trials": 100,
-                              "base_stimuli_path": 'audio/',  # input path is generated as base_stimuli_path+task name
-                              "output_path": 'results/',
-                              "plot_path": 'plots/'}
+                              "base_stimuli_path": base_stimuli_path,  # input path is generated as base_stimuli_path+task name
+                              "output_path": output_path,
+                              "plot_path": plot_path,
+                              "pics_path": pics_path
+                              }
 
 
 # Randomize the order of tasks - between subjects design
@@ -144,23 +161,25 @@ def get_step_size(task, test_difference=13.0000):
             float: The step size for the task.
     """
     if task == "pitch":
-        if test_difference <= 0.312:
+        if test_difference <= 0.242:
             return 0.005
-        elif test_difference <= 1.412:
-            return 0.100
-        elif test_difference <= 5.612:
+        elif test_difference <= 0.362:
+            return 0.010
+        elif test_difference <= 1.262:
+            return 0.075
+        elif test_difference <= 4.862:
             return 0.300
         else:
-            return 0.500
+            return 0.750
     elif task == "pause":
-        if test_difference <= 0.060:
+        if test_difference <= 0.075:
             return 0.001
-        elif test_difference <= 0.120:
+        elif test_difference <= 0.150:
             return 0.005
-        elif test_difference <= 0.300:
-            return 0.015
+        elif test_difference <= 0.250:
+            return 0.010
         else:
-            return 0.025
+            return 0.030
     elif task == "FL":
         if test_difference <= 0.0168:
             return 0.0003

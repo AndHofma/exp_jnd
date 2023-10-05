@@ -28,6 +28,7 @@ def check_config_paths(base_input_path, tasks, output_path, plot_path):
     tasks (list): A list of task names.
     output_path (str): The path for the output directory.
     plot_path (str): The path for the plot directory.
+    pics_path (str): The path for pictures directory.
 
     Returns:
     None
