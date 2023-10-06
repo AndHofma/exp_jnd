@@ -41,6 +41,7 @@ def check_config_paths(base_input_path, tasks, output_path, plot_path):
     # Check if the base input directory exists
     if not os.path.exists(base_input_path):
         # Raise exception if not
+        print("base input path:", base_input_path)
         raise Exception("No input folder detected. Please make sure that "
                         "'base_stimuli_path' is correctly set in the configurations")
     # Iterate through tasks and check if the corresponding input folder exists

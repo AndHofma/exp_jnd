@@ -39,12 +39,21 @@ import sys
 
 
 def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    """Determine and return the absolute path to the resource."""
+
+    # Check if the application is frozen (compiled)
+    if getattr(sys, 'frozen', False):
+        # If we're running as a bundled exe, set the base path as one level above the executable
+        base_path = os.path.join(os.path.dirname(sys.executable), "..")
+    else:
+        # If we're running in a normal Python environment
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
     return os.path.join(base_path, relative_path)
 
 # Update paths to be compatible with PyInstaller
 base_stimuli_path = resource_path('audio/')
+print("Calculated path:", resource_path(base_stimuli_path))
 output_path = resource_path('results/')
 plot_path = resource_path('plots/')
 # directory for the pictograms used

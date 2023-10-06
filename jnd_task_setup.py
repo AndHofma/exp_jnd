@@ -366,9 +366,9 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
                 start_time_str,
                 end_time_str,
                 duration_str,
-                recording_A,
-                recording_X,
-                recording_B,
+                os.path.basename(recording_A),
+                os.path.basename(recording_X),
+                os.path.basename(recording_B),
                 participant_choice,
                 str(correct),
                 str(current_difference),
@@ -479,10 +479,12 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
     # path setup results per participant
     # Define the path in results for each subject
     subj_path_results = os.path.join(general_experiment_configs['output_path'], exp_data['subject'])
+    print(f'subject path: {subj_path_results}')
     # Create the directory if it doesn't exist
     if not os.path.exists(subj_path_results):
         os.makedirs(subj_path_results)
-
+        print(f'subject path created')
+    print(f'subject path not created')
     # Set up the output file
     output_filename = os.path.join(subj_path_results,
                                    f"JND_{exp_config['task']}_{exp_data['subject']}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}_practice.csv")
@@ -624,9 +626,9 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
                 start_time_str,
                 end_time_str,
                 duration_str,
-                recording_A,
-                recording_X,
-                recording_B,
+                os.path.basename(recording_A),
+                os.path.basename(recording_X),
+                os.path.basename(recording_B),
                 participant_choice,
                 str(correct),
                 str(current_difference),
