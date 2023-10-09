@@ -41,9 +41,9 @@ import random
 import time
 import datetime
 from librosa import get_duration
-from configuration import get_step_size, get_task_specific_config, general_experiment_configs
-from pathchecks import stimulus_exists
-from visualization import create_visualization, calculate_threshold
+from jnd_configuration import get_step_size, get_task_specific_config, general_experiment_configs
+from jnd_path import stimulus_exists
+from jnd_visualization import create_visualization, calculate_threshold
 import os
 
 

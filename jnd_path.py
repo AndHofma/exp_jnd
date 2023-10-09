@@ -1,5 +1,5 @@
 """
-This module, named pathchecks.py, contains functions for verifying the existence of specific directories and files
+This module, named jnd_path.py, contains functions for verifying the existence of specific directories and files
 required for audio tasks.
 
 Functions:

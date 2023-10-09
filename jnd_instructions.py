@@ -1,5 +1,5 @@
 """
-This module, named instructions.py, contains the strings for the instruction text to be displayed to the participants
+This module, named jnd_instructions.py, contains the strings for the instruction text to be displayed to the participants
 in a listening task, and a function to generate the instruction text based on the task type and index.
 
 Constants:

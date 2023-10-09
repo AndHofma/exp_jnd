@@ -1,5 +1,17 @@
 """
-Plotting staircase for each run in each task per participant - save plot as *.png
+jnd_visualization.py is a module designed for creating visualizations of adaptive staircase experiments conducted for
+various tasks. It includes functions for calculating the mean and median threshold of an adaptive staircase experiment
+and creating a visualization of the same.
+
+Functions:
+    calculate_threshold(reversals: list, num_reversals: int) -> tuple: Calculates the mean and median thresholds of
+    an adaptive staircase experiment based on the last 'num_reversals' reversal points.
+    create_visualization(differences: list, correct_responses: list, reversals_list: list, task: str, subject: str,
+    file_format: str) -> list: Creates and saves a visualization of an adaptive staircase experiment with the given data.
+
+Note:
+    The module primarily serves as a utility for generating visualizations and thus enables the exploration of how
+    participants are responding to different tasks in the context of an adaptive staircase experiment.
 """
 
 
@@ -8,12 +20,23 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 from matplotlib.patches import Patch, Rectangle, Circle
 from matplotlib.legend_handler import HandlerPatch
-from configuration import *
+from jnd_configuration import *
 import os
 from datetime import datetime
 
 
 def calculate_threshold(reversals, num_reversals=6):
+    """
+    Calculates the mean and median thresholds of an adaptive staircase experiment.
+
+    Parameters:
+    reversals (list): List of reversal points in the experiment.
+    num_reversals (int, optional): Number of reversal points to consider from the end of the list. Defaults to 6.
+
+    Returns:
+    tuple: Mean and median of the selected reversal points, and the selected reversal points.
+    """
+
     if len(reversals) < num_reversals:
         selected_reversals = reversals
     else:
@@ -27,13 +50,18 @@ def calculate_threshold(reversals, num_reversals=6):
 
 def create_visualization(differences, correct_responses, reversals_list, task, subject, file_format='png'):
     """
-        Create and save a visualization of an adaptive staircase experiment with given data.
-        :param differences: List of difference values between stimuli for each trial.
-        :param correct_responses: List of boolean values indicating if the response was correct for each trial.
-        :param reversals_list: List of reversal points in the experiment.
-        :param task: String representing the name of the task.
-        :param subject: String representing the subject identifier.
-        :param file_format: Optional, the file format for saving the plot, default is 'png'.
+    Creates and saves a visualization of an adaptive staircase experiment with the given data.
+
+    Parameters:
+    differences (list): List of difference values between stimuli for each trial.
+    correct_responses (list): List of boolean values indicating if the response was correct for each trial.
+    reversals_list (list): List of reversal points in the experiment.
+    task (str): The name of the task.
+    subject (str): The subject identifier.
+    file_format (str, optional): The file format for saving the plot. Defaults to 'png'.
+
+    Returns:
+    list: Selected reversals points considered for calculating the mean and median thresholds.
     """
 
     # Identify the index positions where the reversals_list values change

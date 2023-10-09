@@ -1,5 +1,5 @@
 """
-configuration.py
+jnd_configuration.py
 
 This module sets up configurations and related functionalities for a Just-Noticeable-Difference (JND) experiment.
 It uses the psychopy library for generating the visual components of the experiment. The experiment examines three
@@ -31,7 +31,7 @@ This supports a between-subjects experimental design.
 """
 
 
-from instructions import pitch_FL_text, pause_text
+from jnd_instructions import pitch_FL_text, pause_text
 import random
 from psychopy import monitors, visual
 import os
