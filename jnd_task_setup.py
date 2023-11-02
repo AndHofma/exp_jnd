@@ -257,7 +257,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             'direction\n')
 
         # Main loop for each trial
-        while trial_index <= general_experiment_configs["num_trials"] and reversals <= 14 and baseline_stimulus != test_stimulus:  # stop conditions
+        while trial_index <= general_experiment_configs["num_trials"] and reversals <= 18 and baseline_stimulus != test_stimulus:  # stop conditions
 
             # randomization phase
             recording_A, recording_B = random.sample([baseline_stimulus, test_stimulus], k=2)
@@ -301,7 +301,7 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
             ABB.draw()
             leftArrow.draw()
             win.flip()
-            keys = event.waitKeys()
+            keys = event.waitKeys(keyList=['left', 'right'])
 
             # evaluation phase
             key_choice_map = {'left': 'left', 'right': 'right'}
@@ -414,21 +414,6 @@ def run_trial_session(path_prefix, exp_data, exp_config, session_type, win):
     # Create visualization for the current test
     create_visualization(differences, correct_responses, reversals_list, exp_config["task"], exp_data['subject'])
 
-    """# after each task
-    if test_nr <= 2:
-        pause_text = f"Sie haben {test_nr} von 3 Tests geschafft.\n Drücken Sie eine Taste, sobald Sie bereit sind, weiterzumachen."
-        # display instructions and wait
-        pause_stimulus = visual.TextStim(win,
-                                         color='black',
-                                         wrapWidth=2,
-                                         height=0.1,
-                                         text=pause_text)
-
-        pause_stimulus.draw()
-        win.flip()
-        event.waitKeys()
-        win.flip()"""
-
 
 def run_practice_session(path_prefix, exp_data, exp_config, win):
     """
@@ -470,7 +455,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
 
     instructions.draw()
     win.flip()  # display the message
-    event.waitKeys()  # wait until button is pressed
+    event.waitKeys(keyList=['return'])  # wait until button is pressed
     win.flip()
 
     start_time = time.time()  # record duration of run of each task - start timer
@@ -555,7 +540,7 @@ def run_practice_session(path_prefix, exp_data, exp_config, win):
             ABB.draw()
             leftArrow.draw()
             win.flip()
-            keys = event.waitKeys()
+            keys = event.waitKeys(keyList=['left', 'right'])
 
             # evaluation phase
             key_choice_map = {'left': 'left', 'right': 'right'}

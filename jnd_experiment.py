@@ -74,7 +74,7 @@ for ind, task in enumerate(randomized_tasks):
                     height=0.1).draw()
 
     win.flip()
-    event.waitKeys()  # wait for participant to react by pressing spacebar
+    event.waitKeys(keyList=['return'])  # wait for participant to react by pressing return
     win.flip()
 
     # Run the experiment
@@ -82,7 +82,7 @@ for ind, task in enumerate(randomized_tasks):
 
     # after each task
     if test_nr <= 2:
-        pause_text = f"Sie haben {test_nr} von 3 Tests geschafft.\n Drücken Sie eine Taste, sobald Sie bereit sind, weiterzumachen."
+        pause_text = f"Sie haben {test_nr} von 3 Tests geschafft.\n Drücken Sie Enter, sobald Sie bereit sind, weiterzumachen."
         # display instructions and wait
         pause_stimulus = visual.TextStim(win,
                                          color='black',
@@ -92,17 +92,17 @@ for ind, task in enumerate(randomized_tasks):
 
         pause_stimulus.draw()
         win.flip()
-        event.waitKeys()
+        event.waitKeys(keyList=['return'])
         win.flip()
 
     test_nr += 1
 
 # Display experiment completion message
-visual.TextStim(win, text='Hervorragend, Sie haben es geschafft. \n Vielen Dank! \n Drücken Sie eine beliebige Taste zum Beenden.',
+visual.TextStim(win, text='Hervorragend, Sie haben es geschafft. \n Vielen Dank! \n Drücken Sie Enter zum Beenden.',
                 color='black',
                 wrapWidth=2,
                 height=0.1).draw()
 win.flip()
-event.waitKeys()
+event.waitKeys(keyList=['return'])
 win.close()
 core.quit()

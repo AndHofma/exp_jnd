@@ -62,7 +62,7 @@ pics_path = resource_path('pics/')
 
 # General experiment configurations
 general_experiment_configs = {"task_types": ["pitch", "FL", "pause"],
-                              "num_trials": 100,
+                              "num_trials": 120,
                               "base_stimuli_path": base_stimuli_path,  # input path is generated as base_stimuli_path+task name
                               "output_path": output_path,
                               "plot_path": plot_path,

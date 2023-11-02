@@ -28,7 +28,7 @@ Manchmal ist der DRITTE Name anders - nach dem Muster BBA. \n
 Nachdem alle drei Namen vorgespielt wurden, wählen Sie bitte, \n welcher anders war, als die anderen beiden.
 Wenn Sie denken, der ERSTE Name ist anders, \n drücken Sie \u2190 den Pfeil nach links auf der Tastatur.
 Wenn Sie denken, der DRITTE Name ist anders, \n drücken Sie \u2192 den Pfeil nach rechts auf der Tastatur.\n
-Drücken Sie eine beliebige Taste, dann starten die Übungsbeispiele.
+Drücken Sie 'Enter', dann starten die Übungsbeispiele.
 """
 
 pause_text = """
@@ -38,8 +38,8 @@ Manchmal ist die ERSTE Wortgruppe anders - nach dem Muster ABB.
 Manchmal ist die DRITTE Wortgruppe anders - nach dem Muster BBA. \n
 Nachdem alle drei Wortgruppen vorgespielt wurden, wählen Sie bitte, \n welche anders war, als die anderen beiden.
 Wenn Sie denken, die ERSTE Wortgruppe ist anders, \n drücken Sie \u2190 den Pfeil nach links auf der Tastatur.
-Wenn Sie denken, der DRITTE Wortgruppe ist anders, \n drücken Sie \u2192 den Pfeil nach rechts auf der Tastatur.\n
-Drücken Sie eine beliebige Taste, dann starten die Übungsbeispiele.
+Wenn Sie denken, die DRITTE Wortgruppe ist anders, \n drücken Sie \u2192 den Pfeil nach rechts auf der Tastatur.\n
+Drücken Sie eine 'Enter', dann starten die Übungsbeispiele.
 """
 
 def get_instruction_text(task, ind):
@@ -74,7 +74,7 @@ def get_instruction_text(task, ind):
                f"Die Aufgabe wird nach und nach immer schwieriger,\n " \
                f"denn die Unterschiede werden immer kleiner. \n" \
                f"Bitte antworten Sie dennoch immer so akkurat, wie möglich.\n\n" \
-               f"Drücken Sie eine beliebige Taste sobald Sie bereit sind."
+               f"Drücken Sie eine 'Enter' sobald Sie bereit sind."
     else:
         return f"Sehr gut!\n" \
                f"Wenn Sie noch Fragen haben, geben Sie der Versuchsleiterin Bescheid.\n\n" \
@@ -85,4 +85,4 @@ def get_instruction_text(task, ind):
                f"Die Aufgabe wird nach und nach immer schwieriger,\n " \
                f"denn die Unterschiede werden immer kleiner. \n" \
                f"Bitte antworten Sie dennoch immer so akkurat, wie möglich.\n\n" \
-               f"Drücken Sie eine beliebige Taste sobald Sie bereit sind."
+               f"Drücken Sie eine 'Enter' sobald Sie bereit sind."
